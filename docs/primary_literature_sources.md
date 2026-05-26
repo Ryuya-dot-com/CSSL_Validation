@@ -11,6 +11,7 @@ methodological sources from computational linguistics.
 | Source | Primary contribution | Relevance here |
 | --- | --- | --- |
 | Siskind (1996), Cognition. DOI: https://doi.org/10.1016/S0010-0277(96)00728-7 | Early computational study of learning word-to-meaning mappings across ambiguous situations. | Historical root for treating CSSL as a lexicon induction problem. |
+| Gillette, Gleitman, Gleitman, & Lederer (1999), Cognition. DOI: https://doi.org/10.1016/S0010-0277(99)00036-0 | Human simulation paradigm showing how hard word learning is from observational evidence alone. | Reminds us that object co-presence alone may be insufficient without additional cues. |
 | Yu & Smith (2007), Psychological Science. DOI: https://doi.org/10.1111/j.1467-9280.2007.01915.x | Adult participants rapidly learned word-referent mappings from ambiguous trials. | Main behavioral precedent for the validation task structure. |
 | Smith & Yu (2008), Cognition. DOI: https://doi.org/10.1016/j.cognition.2007.06.010 | Infants learned word-referent mappings from cross-situational statistics. | Developmental evidence that CSSL is not only an adult strategy. |
 | Vouloumanos (2008), Cognition. DOI: https://doi.org/10.1016/j.cognition.2007.08.007 | Tested adults' sensitivity to fine-grained mapping frequencies. | Important for deciding whether learners track graded statistics or only high-probability mappings. |
@@ -22,6 +23,7 @@ methodological sources from computational linguistics.
 
 | Source | Primary contribution | Relevance here |
 | --- | --- | --- |
+| Medina, Snedeker, Trueswell, & Gleitman (2011), PNAS. DOI: https://doi.org/10.1073/pnas.1105040108 | Showed limits on learning words by observation and motivated insight-like single-hypothesis learning. | Direct predecessor to the PbV interpretation. |
 | Trueswell, Medina, Hafri, & Gleitman (2013), Cognitive Psychology. DOI: https://doi.org/10.1016/j.cogpsych.2012.10.001 | Proposed a single-hypothesis "propose-but-verify" procedure and used contingent-response analyses. | Direct source for the PbV logic, but note that our no-feedback task should model internal hypothesis consistency rather than objective previous correctness. |
 | Stevens, Gleitman, Trueswell, & Yang (2017), Cognitive Science. DOI: https://doi.org/10.1111/cogs.12416 | Introduced the Pursuit model: probabilistic associations plus a local best-hypothesis strategy. | Strong candidate for a CSSL model that bridges associative and PbV accounts. |
 | Roembke & McMurray (2016), Journal of Memory and Language. DOI: https://doi.org/10.1016/j.jml.2015.09.005 | Used eye movements and trial histories to argue against overly simple PbV or simple co-occurrence accounts. | Warns that multiple sources of trial history may shape responses beyond a single hypothesis. |
@@ -33,6 +35,7 @@ methodological sources from computational linguistics.
 | Frank, Goodman, & Tenenbaum (2009), Psychological Science. DOI: https://doi.org/10.1111/j.1467-9280.2009.02335.x | Bayesian model jointly inferring word meanings and speakers' referential intentions. | Useful template for adding referential-pragmatic variables or priors. |
 | Fazly, Alishahi, & Stevenson (2010), Cognitive Science. DOI: https://doi.org/10.1111/j.1551-6709.2010.01104.x | Probabilistic computational model of CSSL. | Direct source for EM/probabilistic alignment-style CSSL modeling. |
 | Kachergis, Yu, & Shiffrin (2012), Psychonomic Bulletin & Review. DOI: https://doi.org/10.3758/s13423-011-0194-6 | Adaptive associative model with competition, attention, and inference-like behavior. | Important for interpreting "PbV-like" behavior that can emerge from associative dynamics. |
+| McMurray, Horst, & Samuelson (2012), Psychological Review. DOI: https://doi.org/10.1037/a0029872 | Dynamic associative account separating online referent selection from slow associative learning. | Supports modeling trial response generation and long-term mapping updates separately. |
 | Yu & Smith (2012), Psychological Review. DOI: https://doi.org/10.1037/a0026182 | Examined prior modeling questions and component interactions in CSSL models. | Methodological warning: different models can produce similar aggregate behavior. |
 | Yurovsky, Yu, & Smith (2013), Cognitive Science. DOI: https://doi.org/10.1111/cogs.12035 | Studied competitive processes in CSSL. | Supports adding competition among referents or words rather than independent word learning. |
 | Yurovsky & Frank (2015), Cognition. DOI: https://doi.org/10.1016/j.cognition.2015.07.013 | Integrated associative and hypothesis-testing constraints in one account. | Useful precedent for mixed-mechanism or memory-attention models. |
@@ -45,6 +48,16 @@ methodological sources from computational linguistics.
 | Saffran, Aslin, & Newport (1996), Science. DOI: https://doi.org/10.1126/science.274.5294.1926 | Foundational demonstration of statistical learning from speech streams. | Background for treating learning as sensitivity to distributional regularities. |
 | Xu & Tenenbaum (2007), Psychological Review. DOI: https://doi.org/10.1037/0033-295X.114.2.245 | Word learning as Bayesian inference. | Source for priors, sampling assumptions, and individual-level Bayesian aptitude indices. |
 | Xu & Tenenbaum (2007), Developmental Science. DOI: https://doi.org/10.1111/j.1467-7687.2007.00590.x | Sensitivity to sampling in Bayesian word learning. | Useful if task instructions or sampling assumptions may change generalization. |
+
+## Speech Perception And Phonological Noise
+
+| Source | Primary contribution | Relevance here |
+| --- | --- | --- |
+| McClelland & Elman (1986), Cognitive Psychology. DOI: https://doi.org/10.1016/0010-0285(86)90015-0 | TRACE interactive-activation model of speech perception. | Useful conceptual source for graded activation among phonological candidates. |
+| Luce & Pisoni (1998), Ear and Hearing. DOI: https://doi.org/10.1097/00003446-199802000-00001 | Neighborhood Activation Model of spoken word recognition. | Relevant to pseudoword neighborhood density and lexical competition. |
+| Norris & McQueen (2008), Psychological Review. DOI: https://doi.org/10.1037/0033-295X.115.2.357 | Shortlist B, a Bayesian model of continuous speech recognition. | Strong source for noisy-channel or Bayesian perceptual front-end modeling. |
+| Flege (1995), in *Speech Perception and Linguistic Experience*. | Speech Learning Model for L2/non-native speech perception. | Theoretical basis for why hard contrasts may destabilize word identity. |
+| Best & Tyler (2007), in *Language Experience in Second Language Speech Learning*. DOI: https://doi.org/10.1075/lllt.17.07bes | Perceptual Assimilation Model for L2 speech perception. | Useful for modeling contrast-specific confusability rather than global difficulty. |
 
 ## Computational Linguistics And Alignment Sources
 
@@ -85,6 +98,17 @@ intended word -> perceived word -> word-object mapping update
    - Pursuit/PbV-style hypothesis learner,
    - noisy-channel phonological learner,
    - associative learner with competition and memory decay.
+
+   For implementation, separate the model into three layers:
+
+```text
+phonological perception: P(perceived_word | intended_word)
+lexicon learning:        P(object | perceived_word, context history)
+response selection:      P(click | belief state, current options)
+```
+
+   This separation keeps the CSSL mechanism distinct from phonological
+   confusability and from the motor/choice process.
 
 5. **Aptitude indices can be decomposed.**
    A single CSSL aptitude score may hide multiple components:
