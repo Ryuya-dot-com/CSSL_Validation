@@ -5,6 +5,12 @@ outside `CSSL_Validation` unless explicitly configured by a command-line argumen
 
 Planned outputs:
 
+- `qa_outputs/`
+  - Optional audio/image QA tables produced by `prepare_audio_qa.py` and
+    `qa_image_similarity.py`. This directory is ignored by git.
+- `participant_summaries/`
+  - Optional descriptive pilot summaries produced by `analyze_model_ready.py`.
+    This directory is ignored by git.
 - `simulation_outputs/`
   - Optional synthetic-data diagnostics produced by
     `simulate_switching_recovery.py`. This directory is ignored by git.
@@ -31,12 +37,32 @@ schedule generation. See `../docs/randomization_plan.md`.
 
 Recommended order:
 
-1. Validate exports and trial histories.
-2. Fit contingent-response summaries.
-3. Fit windowed associative/PbV comparisons.
-4. Fit a continuous mixture model.
-5. Fit a Markov-switching model only if the dataset has enough trials and
+1. Validate audio, images, exports, and trial histories.
+2. Run descriptive pilot summaries from `ModelReady`.
+3. Fit contingent-response summaries.
+4. Fit windowed associative/PbV comparisons.
+5. Fit a continuous mixture model.
+6. Fit a Markov-switching model only if the dataset has enough trials and
    participants.
+
+## Pilot QA
+
+Before pilot collection:
+
+```bash
+python3 CSSL_Validation/analysis/prepare_audio_qa.py
+python3 CSSL_Validation/analysis/qa_image_similarity.py --participants 80
+```
+
+After collecting a pilot workbook:
+
+```bash
+python3 CSSL_Validation/analysis/analyze_model_ready.py path/to/export.xlsx
+```
+
+The workbook summary intentionally uses transparent descriptive quantities:
+block-level accuracy, hard/easy splits, timeout/no-response rates,
+word-trajectory sequences, and previous-correct contingency.
 
 ## Simulation Diagnostic
 

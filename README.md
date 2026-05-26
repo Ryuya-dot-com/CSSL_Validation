@@ -36,6 +36,14 @@ final test accuracy.
 - `analysis/run_simulation_scenarios.py`
   - Runs the switching-recovery simulation across all predefined generative
     scenarios.
+- `analysis/prepare_audio_qa.py`
+  - Creates audio-review CSV tables for manual gTTS/stimulus checking.
+- `analysis/qa_image_similarity.py`
+  - Screens generated SVG objects and 5AFC option sets for obvious visual
+    similarity collisions.
+- `analysis/analyze_model_ready.py`
+  - Summarizes exported `.xlsx` workbooks from the `ModelReady` sheet for pilot
+    checks.
 - `config/task_design_plan2.json`
   - Machine-readable adopted task design: 20 words, 5 blocks, 5AFC.
 - `index.html` / `styles.css` / `task.js`
@@ -68,6 +76,8 @@ final test accuracy.
   - Analysis plan for estimating learning-mechanism switching.
 - `docs/pilot_checklist.md`
   - Pilot QA checklist for audio, images, task flow, export, and model recovery.
+- `docs/pilot_runbook.md`
+  - Step-by-step pilot procedure and go/revise criteria.
 - `analysis/README.md`
   - Planned modeling outputs and file conventions.
 
@@ -132,6 +142,27 @@ full sample. Use `--scenario weak_signal`, `--scenario late_switch`, or
 `--scenario strong_signal` to inspect whether conclusions depend on the assumed
 generative process; `threshold_sensitivity_summary.csv` reports recovery across
 posterior cutoffs.
+
+## Run Pilot QA
+
+From this repository root:
+
+```bash
+python3 CSSL_Validation/analysis/prepare_audio_qa.py
+python3 CSSL_Validation/analysis/qa_image_similarity.py --participants 80
+```
+
+These scripts write ignored QA tables under
+`CSSL_Validation/analysis/qa_outputs/`.
+
+After collecting a pilot workbook:
+
+```bash
+python3 CSSL_Validation/analysis/analyze_model_ready.py path/to/export.xlsx
+```
+
+This writes ignored descriptive summaries under
+`CSSL_Validation/analysis/participant_summaries/`.
 
 ## Run Browser Task
 

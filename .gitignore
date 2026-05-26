@@ -6,3 +6,5 @@ __pycache__/
 node_modules/
 schedules/sub-*_plan2_schedule.json
 analysis/simulation_outputs/
+analysis/qa_outputs/
+analysis/participant_summaries/
