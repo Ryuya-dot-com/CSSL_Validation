@@ -1,0 +1,78 @@
+{
+  "schema": "cssl-validation-task-design-v1",
+  "designName": "plan2_20word_5block_5afc",
+  "usesFmri": false,
+  "familiarizationTask": false,
+  "wordBankSize": 40,
+  "counterbalanceListCount": 4,
+  "wordsPerParticipant": 20,
+  "participantSetComposition": {
+    "control": 10,
+    "hardTotal": 10,
+    "r_l": 2,
+    "v_b": 2,
+    "theta_s": 2,
+    "cluster_r_l": 2,
+    "cluster_v_b": 2
+  },
+  "learning": {
+    "blocks": 5,
+    "encountersPerWordPerBlock": 3,
+    "wordsPerTrial": 3,
+    "objectsPerTrial": 3,
+    "learningTrialsPerBlock": 20,
+    "learningTrialsTotal": 100,
+    "wordEventsPerBlock": 60,
+    "wordEventsTotal": 300,
+    "encountersPerWordTotal": 15,
+    "feedback": false,
+    "responseAfterEachWord": true
+  },
+  "practice": {
+    "enabled": true,
+    "usesSeparatePracticeStimuli": true,
+    "learningPracticeTrials": 1,
+    "testPracticeTrials": 1,
+    "excludedFromAnalysis": true
+  },
+  "test": {
+    "testType": "5AFC",
+    "responseMethod": "click",
+    "blocks": 5,
+    "testOptions": 5,
+    "testTrialsPerBlock": 20,
+    "testTrialsTotal": 100,
+    "testAfterEachLearningBlock": true
+  },
+  "timingAxisForSwitchingModels": {
+    "primary": "wordEncounterIndex_1_to_15",
+    "secondary": "block_1_to_5"
+  },
+  "randomization": {
+    "seedSource": "participantId",
+    "seedAlgorithm": "SHA-256 first 12 hex digits",
+    "prng": "mulberry32-compatible 32-bit PRNG",
+    "listAssignment": "seed mod 4 maps to A/B/C/D",
+    "precomputeSchedule": true,
+    "scheduleScript": "stimulus_tools/build_plan2_schedule.py"
+  },
+  "assets": {
+    "audioEngine": "gTTS",
+    "audioDirectory": "audio",
+    "imageDirectory": "images/objects",
+    "imageType": "abstract_svg",
+    "avoidSameVisualFamilyWithinLearningTrial": true
+  },
+  "export": {
+    "format": "xlsx",
+    "singleFile": true,
+    "autoDownloadAtFinish": true
+  },
+  "notes": [
+    "The 40-word bank is for counterbalancing and replacement, not for presentation to every participant.",
+    "Each participant receives 10 easy control words and 10 hard words.",
+    "Each hard contrast contributes one minimal-pair group per participant list.",
+    "The four participant lists balance control exposure and hard minimal-pair-group exposure across participants.",
+    "The design intentionally omits familiarization because the validation target is mechanism switching during CSSL."
+  ]
+}

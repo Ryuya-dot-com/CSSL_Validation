@@ -1,0 +1,81 @@
+listId,listWordId,objectId,word,phonology,contrast,contrastGroup,syllableCount,syllableTemplate,phones,ipaTarget,ttsText,phonologicalNeighborhoodSize,nearestRealWordDistance,nearestRealWords
+A,1,1,daknik,easy,control,,2,CVC-CVC,D AE K N IH K,/dæknɪk/,dak-nik,2,1,danek|machnik
+A,2,2,deskan,easy,control,,2,CVC-CVC,D EH S K AE N,/dɛskæn/,des-kan,1,1,deskin
+A,3,3,dikman,easy,control,,2,CVC-CVC,D IH K M AE N,/dɪkmæn/,dik-man,4,1,dickman|dickmann|dyckman|dykman
+A,4,4,dimmek,easy,control,,2,CVC-CVC,D IH M M EH K,/dɪmmɛk/,dim-mek,1,1,dymek
+A,5,5,fakkim,easy,control,,2,CVC-CVC,F AE K K IH M,/fækkɪm/,fak-kim,0,3,achill|clim|crim|crimm|fact|facts|falck|fax|flim|klim
+A,6,6,fapnek,easy,control,,2,CVC-CVC,F AE P N EH K,/fæpnɛk/,fap-nek,1,1,fanech
+A,7,7,fensak,easy,control,,2,CVC-CVC,F EH N S AE K,/fɛnsæk/,fen-sak,1,1,fenske
+A,8,8,finkan,easy,control,,2,CVC-CVC,F IH N K AE N,/fɪnkæn/,fin-kan,2,1,fineran|finneran
+A,9,9,gapkem,easy,control,,2,CVC-CVC,G AE P K EH M,/gæpkɛm/,gap-kem,0,3,gappa|gaps|pm|prem
+A,10,10,hakmen,easy,control,,2,CVC-CVC,HH AE K M EH N,/hækmɛn/,hak-men,2,1,hackman|hackmann
+A,11,11,klokun,hard,cluster_r_l,krokun_klokun,2,CCV-CVC,K L AA K AH N,/klɑkʌn/,klo-kun,6,1,claassen|closson|klaassen|kochan|locken|lokken
+A,12,12,krokun,hard,cluster_r_l,krokun_klokun,2,CCV-CVC,K R AA K AH N,/kɹɑkʌn/,kro-kun,4,1,croghan|crossan|crosson|kochan
+A,13,13,brekum,hard,cluster_v_b,vrekum_brekum,2,CCV-CVC,B R EH K AH M,/bɹɛkʌm/,bre-kum,2,1,beckum|bricom
+A,14,14,vrekum,hard,cluster_v_b,vrekum_brekum,2,CCV-CVC,V R EH K AH M,/vɹɛkʌm/,vre-kum,0,3,acomb|arum|aurum|breck|brehm|brekke|brem|brum|brumm|creque
+A,15,15,lalim,hard,r_l,ralim_lalim,2,CVC-CVC,L AE L IH M,/lælɪm/,lal-im,3,1,lathem|salemme|salim
+A,16,16,ralim,hard,r_l,ralim_lalim,2,CVC-CVC,R AE L IH M,/ɹælɪm/,ral-im,3,1,rallis|salemme|salim
+A,17,17,safim,hard,theta_s,thafim_safim,2,CVC-CVC,S AE F IH M,/sæfɪm/,saf-im,2,1,salemme|salim
+A,18,18,thafim,hard,theta_s,thafim_safim,2,CVC-CVC,TH AE F IH M,/θæfɪm/,thaf-im,0,2,tham|thang|thanh|thatch|theme|therm|thick|thief|thiem|thieme
+A,19,19,bopin,hard,v_b,vopin_bopin,2,CVC-CVC,B AA P IH N,/bɑpɪn/,bop-in,5,1,bollin|bonnin|botin|coppin|toppin
+A,20,20,vopin,hard,v_b,vopin_bopin,2,CVC-CVC,V AA P IH N,/vɑpɪn/,vop-in,3,1,coppin|toppin|vipin
+B,1,1,daknik,easy,control,,2,CVC-CVC,D AE K N IH K,/dæknɪk/,dak-nik,2,1,danek|machnik
+B,2,2,deskan,easy,control,,2,CVC-CVC,D EH S K AE N,/dɛskæn/,des-kan,1,1,deskin
+B,3,3,dikman,easy,control,,2,CVC-CVC,D IH K M AE N,/dɪkmæn/,dik-man,4,1,dickman|dickmann|dyckman|dykman
+B,4,4,dimmek,easy,control,,2,CVC-CVC,D IH M M EH K,/dɪmmɛk/,dim-mek,1,1,dymek
+B,5,5,fakkim,easy,control,,2,CVC-CVC,F AE K K IH M,/fækkɪm/,fak-kim,0,3,achill|clim|crim|crimm|fact|facts|falck|fax|flim|klim
+B,6,6,hamkik,easy,control,,2,CVC-CVC,HH AE M K IH K,/hæmkɪk/,ham-kik,2,1,hamric|hamrick
+B,7,7,hanpek,easy,control,,2,CVC-CVC,HH AE N P EH K,/hænpɛk/,han-pek,1,1,henpeck
+B,8,8,hektak,easy,control,,2,CVC-CVC,HH EH K T AE K,/hɛktæk/,hek-tak,1,1,hectic
+B,9,9,kempak,easy,control,,2,CVC-CVC,K EH M P AE K,/kɛmpæk/,kem-pak,3,1,compaq|kempke|rempac
+B,10,10,konmak,easy,control,,2,CVC-CVC,K AA N M AE K,/kɑnmæk/,kon-mak,3,1,cognac|conrac|contac
+B,11,11,klokun,hard,cluster_r_l,krokun_klokun,2,CCV-CVC,K L AA K AH N,/klɑkʌn/,klo-kun,6,1,claassen|closson|klaassen|kochan|locken|lokken
+B,12,12,krokun,hard,cluster_r_l,krokun_klokun,2,CCV-CVC,K R AA K AH N,/kɹɑkʌn/,kro-kun,4,1,croghan|crossan|crosson|kochan
+B,13,13,brosit,hard,cluster_v_b,vrosit_brosit,2,CCV-CVC,B R AA S IH T,/bɹɑsɪt/,bro-sit,3,1,brockett|brost|crossett
+B,14,14,vrosit,hard,cluster_v_b,vrosit_brosit,2,CCV-CVC,V R AA S IH T,/vɹɑsɪt/,vro-sit,1,1,crossett
+B,15,15,lalim,hard,r_l,ralim_lalim,2,CVC-CVC,L AE L IH M,/lælɪm/,lal-im,3,1,lathem|salemme|salim
+B,16,16,ralim,hard,r_l,ralim_lalim,2,CVC-CVC,R AE L IH M,/ɹælɪm/,ral-im,3,1,rallis|salemme|salim
+B,17,17,siten,hard,theta_s,thiten_siten,2,CVC-CVC,S IH T EH N,/sɪtɛn/,sit-en,3,1,sitek|sitton|sten
+B,18,18,thiten,hard,theta_s,thiten_siten,2,CVC-CVC,TH IH T EH N,/θɪtɛn/,thit-en,0,2,ten|teng|tenn|terre|tesch|tesh|tess|tet|tete|thain
+B,19,19,bosim,hard,v_b,vosim_bosim,2,CVC-CVC,B AA S IH M,/bɑsɪm/,bos-im,2,1,basich|basim
+B,20,20,vosim,hard,v_b,vosim_bosim,2,CVC-CVC,V AA S IH M,/vɑsɪm/,vos-im,1,1,wasik
+C,1,1,fapnek,easy,control,,2,CVC-CVC,F AE P N EH K,/fæpnɛk/,fap-nek,1,1,fanech
+C,2,2,fensak,easy,control,,2,CVC-CVC,F EH N S AE K,/fɛnsæk/,fen-sak,1,1,fenske
+C,3,3,finkan,easy,control,,2,CVC-CVC,F IH N K AE N,/fɪnkæn/,fin-kan,2,1,fineran|finneran
+C,4,4,gapkem,easy,control,,2,CVC-CVC,G AE P K EH M,/gæpkɛm/,gap-kem,0,3,gappa|gaps|pm|prem
+C,5,5,hakmen,easy,control,,2,CVC-CVC,HH AE K M EH N,/hækmɛn/,hak-men,2,1,hackman|hackmann
+C,6,6,memnan,easy,control,,2,CVC-CVC,M EH M N AE N,/mɛmnæn/,mem-nan,1,1,memnon
+C,7,7,minkek,easy,control,,2,CVC-CVC,M IH N K EH K,/mɪnkɛk/,min-kek,2,1,macek|minntech
+C,8,8,netmak,easy,control,,2,CVC-CVC,N EH T M AE K,/nɛtmæk/,net-mak,1,1,netback
+C,9,9,piknak,easy,control,,2,CVC-CVC,P IH K N AE K,/pɪknæk/,pik-nak,3,1,knickknack|picnic|pilnak
+C,10,10,tomkak,easy,control,,2,CVC-CVC,T AA M K AE K,/tɑmkæk/,tom-kak,2,1,tomcat|tomczak
+C,11,11,klopin,hard,cluster_r_l,kropin_klopin,2,CCV-CVC,K L AA P IH N,/klɑpɪn/,klo-pin,1,1,coppin
+C,12,12,kropin,hard,cluster_r_l,kropin_klopin,2,CCV-CVC,K R AA P IH N,/kɹɑpɪn/,kro-pin,3,1,coppin|cropping|crossin
+C,13,13,brekum,hard,cluster_v_b,vrekum_brekum,2,CCV-CVC,B R EH K AH M,/bɹɛkʌm/,bre-kum,2,1,beckum|bricom
+C,14,14,vrekum,hard,cluster_v_b,vrekum_brekum,2,CCV-CVC,V R EH K AH M,/vɹɛkʌm/,vre-kum,0,3,acomb|arum|aurum|breck|brehm|brekke|brem|brum|brumm|creque
+C,15,15,lipak,hard,r_l,ripak_lipak,2,CVC-CVC,L IH P AE K,/lɪpæk/,lip-ak,1,1,lipke
+C,16,16,ripak,hard,r_l,ripak_lipak,2,CVC-CVC,R IH P AE K,/ɹɪpæk/,rip-ak,3,1,repack|ripke|ropak
+C,17,17,siten,hard,theta_s,thiten_siten,2,CVC-CVC,S IH T EH N,/sɪtɛn/,sit-en,3,1,sitek|sitton|sten
+C,18,18,thiten,hard,theta_s,thiten_siten,2,CVC-CVC,TH IH T EH N,/θɪtɛn/,thit-en,0,2,ten|teng|tenn|terre|tesch|tesh|tess|tet|tete|thain
+C,19,19,bopin,hard,v_b,vopin_bopin,2,CVC-CVC,B AA P IH N,/bɑpɪn/,bop-in,5,1,bollin|bonnin|botin|coppin|toppin
+C,20,20,vopin,hard,v_b,vopin_bopin,2,CVC-CVC,V AA P IH N,/vɑpɪn/,vop-in,3,1,coppin|toppin|vipin
+D,1,1,hamkik,easy,control,,2,CVC-CVC,HH AE M K IH K,/hæmkɪk/,ham-kik,2,1,hamric|hamrick
+D,2,2,hanpek,easy,control,,2,CVC-CVC,HH AE N P EH K,/hænpɛk/,han-pek,1,1,henpeck
+D,3,3,hektak,easy,control,,2,CVC-CVC,HH EH K T AE K,/hɛktæk/,hek-tak,1,1,hectic
+D,4,4,kempak,easy,control,,2,CVC-CVC,K EH M P AE K,/kɛmpæk/,kem-pak,3,1,compaq|kempke|rempac
+D,5,5,konmak,easy,control,,2,CVC-CVC,K AA N M AE K,/kɑnmæk/,kon-mak,3,1,cognac|conrac|contac
+D,6,6,memnan,easy,control,,2,CVC-CVC,M EH M N AE N,/mɛmnæn/,mem-nan,1,1,memnon
+D,7,7,minkek,easy,control,,2,CVC-CVC,M IH N K EH K,/mɪnkɛk/,min-kek,2,1,macek|minntech
+D,8,8,netmak,easy,control,,2,CVC-CVC,N EH T M AE K,/nɛtmæk/,net-mak,1,1,netback
+D,9,9,piknak,easy,control,,2,CVC-CVC,P IH K N AE K,/pɪknæk/,pik-nak,3,1,knickknack|picnic|pilnak
+D,10,10,tomkak,easy,control,,2,CVC-CVC,T AA M K AE K,/tɑmkæk/,tom-kak,2,1,tomcat|tomczak
+D,11,11,klopin,hard,cluster_r_l,kropin_klopin,2,CCV-CVC,K L AA P IH N,/klɑpɪn/,klo-pin,1,1,coppin
+D,12,12,kropin,hard,cluster_r_l,kropin_klopin,2,CCV-CVC,K R AA P IH N,/kɹɑpɪn/,kro-pin,3,1,coppin|cropping|crossin
+D,13,13,brosit,hard,cluster_v_b,vrosit_brosit,2,CCV-CVC,B R AA S IH T,/bɹɑsɪt/,bro-sit,3,1,brockett|brost|crossett
+D,14,14,vrosit,hard,cluster_v_b,vrosit_brosit,2,CCV-CVC,V R AA S IH T,/vɹɑsɪt/,vro-sit,1,1,crossett
+D,15,15,lipak,hard,r_l,ripak_lipak,2,CVC-CVC,L IH P AE K,/lɪpæk/,lip-ak,1,1,lipke
+D,16,16,ripak,hard,r_l,ripak_lipak,2,CVC-CVC,R IH P AE K,/ɹɪpæk/,rip-ak,3,1,repack|ripke|ropak
+D,17,17,safim,hard,theta_s,thafim_safim,2,CVC-CVC,S AE F IH M,/sæfɪm/,saf-im,2,1,salemme|salim
+D,18,18,thafim,hard,theta_s,thafim_safim,2,CVC-CVC,TH AE F IH M,/θæfɪm/,thaf-im,0,2,tham|thang|thanh|thatch|theme|therm|thick|thief|thiem|thieme
+D,19,19,bosim,hard,v_b,vosim_bosim,2,CVC-CVC,B AA S IH M,/bɑsɪm/,bos-im,2,1,basich|basim
+D,20,20,vosim,hard,v_b,vosim_bosim,2,CVC-CVC,V AA S IH M,/vɑsɪm/,vos-im,1,1,wasik

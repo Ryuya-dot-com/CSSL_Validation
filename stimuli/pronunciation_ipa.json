@@ -1,0 +1,1041 @@
+{
+  "metadata": {
+    "schema": "cssl-validation-pronunciation-v1",
+    "source": "/Users/ryuya/Library/CloudStorage/Dropbox/fMRI_CSSL/CSSL_Validation/stimuli/stimulus_set_selected.csv",
+    "itemCount": 40,
+    "allItemsTwoSyllables": true
+  },
+  "items": [
+    {
+      "word": "daknik",
+      "ipa": "/dæknɪk/",
+      "arpabet": [
+        "D",
+        "AE",
+        "K",
+        "N",
+        "IH",
+        "K"
+      ],
+      "ttsText": "dak-nik",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 2,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "danek",
+        "machnik"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "deskan",
+      "ipa": "/dɛskæn/",
+      "arpabet": [
+        "D",
+        "EH",
+        "S",
+        "K",
+        "AE",
+        "N"
+      ],
+      "ttsText": "des-kan",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "deskin"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "dikman",
+      "ipa": "/dɪkmæn/",
+      "arpabet": [
+        "D",
+        "IH",
+        "K",
+        "M",
+        "AE",
+        "N"
+      ],
+      "ttsText": "dik-man",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 4,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "dickman",
+        "dickmann",
+        "dyckman",
+        "dykman"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "dimmek",
+      "ipa": "/dɪmmɛk/",
+      "arpabet": [
+        "D",
+        "IH",
+        "M",
+        "M",
+        "EH",
+        "K"
+      ],
+      "ttsText": "dim-mek",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "dymek"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "fakkim",
+      "ipa": "/fækkɪm/",
+      "arpabet": [
+        "F",
+        "AE",
+        "K",
+        "K",
+        "IH",
+        "M"
+      ],
+      "ttsText": "fak-kim",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 0,
+      "nearestRealWordDistance": 3,
+      "nearestRealWords": [
+        "achill",
+        "clim",
+        "crim",
+        "crimm",
+        "fact",
+        "facts",
+        "falck",
+        "fax",
+        "flim",
+        "klim"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "fapnek",
+      "ipa": "/fæpnɛk/",
+      "arpabet": [
+        "F",
+        "AE",
+        "P",
+        "N",
+        "EH",
+        "K"
+      ],
+      "ttsText": "fap-nek",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "fanech"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "fensak",
+      "ipa": "/fɛnsæk/",
+      "arpabet": [
+        "F",
+        "EH",
+        "N",
+        "S",
+        "AE",
+        "K"
+      ],
+      "ttsText": "fen-sak",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "fenske"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "finkan",
+      "ipa": "/fɪnkæn/",
+      "arpabet": [
+        "F",
+        "IH",
+        "N",
+        "K",
+        "AE",
+        "N"
+      ],
+      "ttsText": "fin-kan",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 2,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "fineran",
+        "finneran"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "gapkem",
+      "ipa": "/gæpkɛm/",
+      "arpabet": [
+        "G",
+        "AE",
+        "P",
+        "K",
+        "EH",
+        "M"
+      ],
+      "ttsText": "gap-kem",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 0,
+      "nearestRealWordDistance": 3,
+      "nearestRealWords": [
+        "gappa",
+        "gaps",
+        "pm",
+        "prem"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "hakmen",
+      "ipa": "/hækmɛn/",
+      "arpabet": [
+        "HH",
+        "AE",
+        "K",
+        "M",
+        "EH",
+        "N"
+      ],
+      "ttsText": "hak-men",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 2,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "hackman",
+        "hackmann"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "hamkik",
+      "ipa": "/hæmkɪk/",
+      "arpabet": [
+        "HH",
+        "AE",
+        "M",
+        "K",
+        "IH",
+        "K"
+      ],
+      "ttsText": "ham-kik",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 2,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "hamric",
+        "hamrick"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "hanpek",
+      "ipa": "/hænpɛk/",
+      "arpabet": [
+        "HH",
+        "AE",
+        "N",
+        "P",
+        "EH",
+        "K"
+      ],
+      "ttsText": "han-pek",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "henpeck"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "hektak",
+      "ipa": "/hɛktæk/",
+      "arpabet": [
+        "HH",
+        "EH",
+        "K",
+        "T",
+        "AE",
+        "K"
+      ],
+      "ttsText": "hek-tak",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "hectic"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "kempak",
+      "ipa": "/kɛmpæk/",
+      "arpabet": [
+        "K",
+        "EH",
+        "M",
+        "P",
+        "AE",
+        "K"
+      ],
+      "ttsText": "kem-pak",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 3,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "compaq",
+        "kempke",
+        "rempac"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "konmak",
+      "ipa": "/kɑnmæk/",
+      "arpabet": [
+        "K",
+        "AA",
+        "N",
+        "M",
+        "AE",
+        "K"
+      ],
+      "ttsText": "kon-mak",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 3,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "cognac",
+        "conrac",
+        "contac"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "memnan",
+      "ipa": "/mɛmnæn/",
+      "arpabet": [
+        "M",
+        "EH",
+        "M",
+        "N",
+        "AE",
+        "N"
+      ],
+      "ttsText": "mem-nan",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "memnon"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "minkek",
+      "ipa": "/mɪnkɛk/",
+      "arpabet": [
+        "M",
+        "IH",
+        "N",
+        "K",
+        "EH",
+        "K"
+      ],
+      "ttsText": "min-kek",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 2,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "macek",
+        "minntech"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "netmak",
+      "ipa": "/nɛtmæk/",
+      "arpabet": [
+        "N",
+        "EH",
+        "T",
+        "M",
+        "AE",
+        "K"
+      ],
+      "ttsText": "net-mak",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "netback"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "piknak",
+      "ipa": "/pɪknæk/",
+      "arpabet": [
+        "P",
+        "IH",
+        "K",
+        "N",
+        "AE",
+        "K"
+      ],
+      "ttsText": "pik-nak",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 3,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "knickknack",
+        "picnic",
+        "pilnak"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "tomkak",
+      "ipa": "/tɑmkæk/",
+      "arpabet": [
+        "T",
+        "AA",
+        "M",
+        "K",
+        "AE",
+        "K"
+      ],
+      "ttsText": "tom-kak",
+      "phonology": "easy",
+      "contrast": "control",
+      "contrastGroup": "",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 2,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "tomcat",
+        "tomczak"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "lalim",
+      "ipa": "/lælɪm/",
+      "arpabet": [
+        "L",
+        "AE",
+        "L",
+        "IH",
+        "M"
+      ],
+      "ttsText": "lal-im",
+      "phonology": "hard",
+      "contrast": "r_l",
+      "contrastGroup": "ralim_lalim",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 3,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "lathem",
+        "salemme",
+        "salim"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "ralim",
+      "ipa": "/ɹælɪm/",
+      "arpabet": [
+        "R",
+        "AE",
+        "L",
+        "IH",
+        "M"
+      ],
+      "ttsText": "ral-im",
+      "phonology": "hard",
+      "contrast": "r_l",
+      "contrastGroup": "ralim_lalim",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 3,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "rallis",
+        "salemme",
+        "salim"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "lipak",
+      "ipa": "/lɪpæk/",
+      "arpabet": [
+        "L",
+        "IH",
+        "P",
+        "AE",
+        "K"
+      ],
+      "ttsText": "lip-ak",
+      "phonology": "hard",
+      "contrast": "r_l",
+      "contrastGroup": "ripak_lipak",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "lipke"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "ripak",
+      "ipa": "/ɹɪpæk/",
+      "arpabet": [
+        "R",
+        "IH",
+        "P",
+        "AE",
+        "K"
+      ],
+      "ttsText": "rip-ak",
+      "phonology": "hard",
+      "contrast": "r_l",
+      "contrastGroup": "ripak_lipak",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 3,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "repack",
+        "ripke",
+        "ropak"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "bopin",
+      "ipa": "/bɑpɪn/",
+      "arpabet": [
+        "B",
+        "AA",
+        "P",
+        "IH",
+        "N"
+      ],
+      "ttsText": "bop-in",
+      "phonology": "hard",
+      "contrast": "v_b",
+      "contrastGroup": "vopin_bopin",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 5,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "bollin",
+        "bonnin",
+        "botin",
+        "coppin",
+        "toppin"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "vopin",
+      "ipa": "/vɑpɪn/",
+      "arpabet": [
+        "V",
+        "AA",
+        "P",
+        "IH",
+        "N"
+      ],
+      "ttsText": "vop-in",
+      "phonology": "hard",
+      "contrast": "v_b",
+      "contrastGroup": "vopin_bopin",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 3,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "coppin",
+        "toppin",
+        "vipin"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "bosim",
+      "ipa": "/bɑsɪm/",
+      "arpabet": [
+        "B",
+        "AA",
+        "S",
+        "IH",
+        "M"
+      ],
+      "ttsText": "bos-im",
+      "phonology": "hard",
+      "contrast": "v_b",
+      "contrastGroup": "vosim_bosim",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 2,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "basich",
+        "basim"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "vosim",
+      "ipa": "/vɑsɪm/",
+      "arpabet": [
+        "V",
+        "AA",
+        "S",
+        "IH",
+        "M"
+      ],
+      "ttsText": "vos-im",
+      "phonology": "hard",
+      "contrast": "v_b",
+      "contrastGroup": "vosim_bosim",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "wasik"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "safim",
+      "ipa": "/sæfɪm/",
+      "arpabet": [
+        "S",
+        "AE",
+        "F",
+        "IH",
+        "M"
+      ],
+      "ttsText": "saf-im",
+      "phonology": "hard",
+      "contrast": "theta_s",
+      "contrastGroup": "thafim_safim",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 2,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "salemme",
+        "salim"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "thafim",
+      "ipa": "/θæfɪm/",
+      "arpabet": [
+        "TH",
+        "AE",
+        "F",
+        "IH",
+        "M"
+      ],
+      "ttsText": "thaf-im",
+      "phonology": "hard",
+      "contrast": "theta_s",
+      "contrastGroup": "thafim_safim",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 0,
+      "nearestRealWordDistance": 2,
+      "nearestRealWords": [
+        "tham",
+        "thang",
+        "thanh",
+        "thatch",
+        "theme",
+        "therm",
+        "thick",
+        "thief",
+        "thiem",
+        "thieme"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "siten",
+      "ipa": "/sɪtɛn/",
+      "arpabet": [
+        "S",
+        "IH",
+        "T",
+        "EH",
+        "N"
+      ],
+      "ttsText": "sit-en",
+      "phonology": "hard",
+      "contrast": "theta_s",
+      "contrastGroup": "thiten_siten",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 3,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "sitek",
+        "sitton",
+        "sten"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "thiten",
+      "ipa": "/θɪtɛn/",
+      "arpabet": [
+        "TH",
+        "IH",
+        "T",
+        "EH",
+        "N"
+      ],
+      "ttsText": "thit-en",
+      "phonology": "hard",
+      "contrast": "theta_s",
+      "contrastGroup": "thiten_siten",
+      "syllableCount": 2,
+      "syllableTemplate": "CVC-CVC",
+      "phonologicalNeighborhoodSize": 0,
+      "nearestRealWordDistance": 2,
+      "nearestRealWords": [
+        "ten",
+        "teng",
+        "tenn",
+        "terre",
+        "tesch",
+        "tesh",
+        "tess",
+        "tet",
+        "tete",
+        "thain"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "klokun",
+      "ipa": "/klɑkʌn/",
+      "arpabet": [
+        "K",
+        "L",
+        "AA",
+        "K",
+        "AH",
+        "N"
+      ],
+      "ttsText": "klo-kun",
+      "phonology": "hard",
+      "contrast": "cluster_r_l",
+      "contrastGroup": "krokun_klokun",
+      "syllableCount": 2,
+      "syllableTemplate": "CCV-CVC",
+      "phonologicalNeighborhoodSize": 6,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "claassen",
+        "closson",
+        "klaassen",
+        "kochan",
+        "locken",
+        "lokken"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "krokun",
+      "ipa": "/kɹɑkʌn/",
+      "arpabet": [
+        "K",
+        "R",
+        "AA",
+        "K",
+        "AH",
+        "N"
+      ],
+      "ttsText": "kro-kun",
+      "phonology": "hard",
+      "contrast": "cluster_r_l",
+      "contrastGroup": "krokun_klokun",
+      "syllableCount": 2,
+      "syllableTemplate": "CCV-CVC",
+      "phonologicalNeighborhoodSize": 4,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "croghan",
+        "crossan",
+        "crosson",
+        "kochan"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "klopin",
+      "ipa": "/klɑpɪn/",
+      "arpabet": [
+        "K",
+        "L",
+        "AA",
+        "P",
+        "IH",
+        "N"
+      ],
+      "ttsText": "klo-pin",
+      "phonology": "hard",
+      "contrast": "cluster_r_l",
+      "contrastGroup": "kropin_klopin",
+      "syllableCount": 2,
+      "syllableTemplate": "CCV-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "coppin"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "kropin",
+      "ipa": "/kɹɑpɪn/",
+      "arpabet": [
+        "K",
+        "R",
+        "AA",
+        "P",
+        "IH",
+        "N"
+      ],
+      "ttsText": "kro-pin",
+      "phonology": "hard",
+      "contrast": "cluster_r_l",
+      "contrastGroup": "kropin_klopin",
+      "syllableCount": 2,
+      "syllableTemplate": "CCV-CVC",
+      "phonologicalNeighborhoodSize": 3,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "coppin",
+        "cropping",
+        "crossin"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "brekum",
+      "ipa": "/bɹɛkʌm/",
+      "arpabet": [
+        "B",
+        "R",
+        "EH",
+        "K",
+        "AH",
+        "M"
+      ],
+      "ttsText": "bre-kum",
+      "phonology": "hard",
+      "contrast": "cluster_v_b",
+      "contrastGroup": "vrekum_brekum",
+      "syllableCount": 2,
+      "syllableTemplate": "CCV-CVC",
+      "phonologicalNeighborhoodSize": 2,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "beckum",
+        "bricom"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "vrekum",
+      "ipa": "/vɹɛkʌm/",
+      "arpabet": [
+        "V",
+        "R",
+        "EH",
+        "K",
+        "AH",
+        "M"
+      ],
+      "ttsText": "vre-kum",
+      "phonology": "hard",
+      "contrast": "cluster_v_b",
+      "contrastGroup": "vrekum_brekum",
+      "syllableCount": 2,
+      "syllableTemplate": "CCV-CVC",
+      "phonologicalNeighborhoodSize": 0,
+      "nearestRealWordDistance": 3,
+      "nearestRealWords": [
+        "acomb",
+        "arum",
+        "aurum",
+        "breck",
+        "brehm",
+        "brekke",
+        "brem",
+        "brum",
+        "brumm",
+        "creque"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "brosit",
+      "ipa": "/bɹɑsɪt/",
+      "arpabet": [
+        "B",
+        "R",
+        "AA",
+        "S",
+        "IH",
+        "T"
+      ],
+      "ttsText": "bro-sit",
+      "phonology": "hard",
+      "contrast": "cluster_v_b",
+      "contrastGroup": "vrosit_brosit",
+      "syllableCount": 2,
+      "syllableTemplate": "CCV-CVC",
+      "phonologicalNeighborhoodSize": 3,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "brockett",
+        "brost",
+        "crossett"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    },
+    {
+      "word": "vrosit",
+      "ipa": "/vɹɑsɪt/",
+      "arpabet": [
+        "V",
+        "R",
+        "AA",
+        "S",
+        "IH",
+        "T"
+      ],
+      "ttsText": "vro-sit",
+      "phonology": "hard",
+      "contrast": "cluster_v_b",
+      "contrastGroup": "vrosit_brosit",
+      "syllableCount": 2,
+      "syllableTemplate": "CCV-CVC",
+      "phonologicalNeighborhoodSize": 1,
+      "nearestRealWordDistance": 1,
+      "nearestRealWords": [
+        "crossett"
+      ],
+      "notes": "IPA is the target pronunciation; ttsText is a practical audio-generation respelling."
+    }
+  ]
+}

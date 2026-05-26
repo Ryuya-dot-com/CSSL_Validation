@@ -1,0 +1,321 @@
+{
+  "schema": "cssl-validation-gtts-audio-v1",
+  "engine": "gTTS",
+  "lang": "en",
+  "tld": "com",
+  "slow": false,
+  "generated": 45,
+  "skippedExisting": 0,
+  "items": [
+    {
+      "word": "bopin",
+      "ttsText": "bop-in",
+      "ipaTarget": "/bɑpɪn/",
+      "kind": "main",
+      "filename": "bopin.mp3"
+    },
+    {
+      "word": "bosim",
+      "ttsText": "bos-im",
+      "ipaTarget": "/bɑsɪm/",
+      "kind": "main",
+      "filename": "bosim.mp3"
+    },
+    {
+      "word": "brekum",
+      "ttsText": "bre-kum",
+      "ipaTarget": "/bɹɛkʌm/",
+      "kind": "main",
+      "filename": "brekum.mp3"
+    },
+    {
+      "word": "brosit",
+      "ttsText": "bro-sit",
+      "ipaTarget": "/bɹɑsɪt/",
+      "kind": "main",
+      "filename": "brosit.mp3"
+    },
+    {
+      "word": "daknik",
+      "ttsText": "dak-nik",
+      "ipaTarget": "/dæknɪk/",
+      "kind": "main",
+      "filename": "daknik.mp3"
+    },
+    {
+      "word": "deskan",
+      "ttsText": "des-kan",
+      "ipaTarget": "/dɛskæn/",
+      "kind": "main",
+      "filename": "deskan.mp3"
+    },
+    {
+      "word": "dikman",
+      "ttsText": "dik-man",
+      "ipaTarget": "/dɪkmæn/",
+      "kind": "main",
+      "filename": "dikman.mp3"
+    },
+    {
+      "word": "dimmek",
+      "ttsText": "dim-mek",
+      "ipaTarget": "/dɪmmɛk/",
+      "kind": "main",
+      "filename": "dimmek.mp3"
+    },
+    {
+      "word": "fakkim",
+      "ttsText": "fak-kim",
+      "ipaTarget": "/fækkɪm/",
+      "kind": "main",
+      "filename": "fakkim.mp3"
+    },
+    {
+      "word": "fapnek",
+      "ttsText": "fap-nek",
+      "ipaTarget": "/fæpnɛk/",
+      "kind": "main",
+      "filename": "fapnek.mp3"
+    },
+    {
+      "word": "fensak",
+      "ttsText": "fen-sak",
+      "ipaTarget": "/fɛnsæk/",
+      "kind": "main",
+      "filename": "fensak.mp3"
+    },
+    {
+      "word": "finkan",
+      "ttsText": "fin-kan",
+      "ipaTarget": "/fɪnkæn/",
+      "kind": "main",
+      "filename": "finkan.mp3"
+    },
+    {
+      "word": "gapkem",
+      "ttsText": "gap-kem",
+      "ipaTarget": "/gæpkɛm/",
+      "kind": "main",
+      "filename": "gapkem.mp3"
+    },
+    {
+      "word": "hakmen",
+      "ttsText": "hak-men",
+      "ipaTarget": "/hækmɛn/",
+      "kind": "main",
+      "filename": "hakmen.mp3"
+    },
+    {
+      "word": "hamkik",
+      "ttsText": "ham-kik",
+      "ipaTarget": "/hæmkɪk/",
+      "kind": "main",
+      "filename": "hamkik.mp3"
+    },
+    {
+      "word": "hanpek",
+      "ttsText": "han-pek",
+      "ipaTarget": "/hænpɛk/",
+      "kind": "main",
+      "filename": "hanpek.mp3"
+    },
+    {
+      "word": "hektak",
+      "ttsText": "hek-tak",
+      "ipaTarget": "/hɛktæk/",
+      "kind": "main",
+      "filename": "hektak.mp3"
+    },
+    {
+      "word": "kempak",
+      "ttsText": "kem-pak",
+      "ipaTarget": "/kɛmpæk/",
+      "kind": "main",
+      "filename": "kempak.mp3"
+    },
+    {
+      "word": "klokun",
+      "ttsText": "klo-kun",
+      "ipaTarget": "/klɑkʌn/",
+      "kind": "main",
+      "filename": "klokun.mp3"
+    },
+    {
+      "word": "klopin",
+      "ttsText": "klo-pin",
+      "ipaTarget": "/klɑpɪn/",
+      "kind": "main",
+      "filename": "klopin.mp3"
+    },
+    {
+      "word": "konmak",
+      "ttsText": "kon-mak",
+      "ipaTarget": "/kɑnmæk/",
+      "kind": "main",
+      "filename": "konmak.mp3"
+    },
+    {
+      "word": "krokun",
+      "ttsText": "kro-kun",
+      "ipaTarget": "/kɹɑkʌn/",
+      "kind": "main",
+      "filename": "krokun.mp3"
+    },
+    {
+      "word": "kropin",
+      "ttsText": "kro-pin",
+      "ipaTarget": "/kɹɑpɪn/",
+      "kind": "main",
+      "filename": "kropin.mp3"
+    },
+    {
+      "word": "lalim",
+      "ttsText": "lal-im",
+      "ipaTarget": "/lælɪm/",
+      "kind": "main",
+      "filename": "lalim.mp3"
+    },
+    {
+      "word": "lipak",
+      "ttsText": "lip-ak",
+      "ipaTarget": "/lɪpæk/",
+      "kind": "main",
+      "filename": "lipak.mp3"
+    },
+    {
+      "word": "looma",
+      "ttsText": "loo-mah",
+      "kind": "practice",
+      "filename": "looma.mp3"
+    },
+    {
+      "word": "memnan",
+      "ttsText": "mem-nan",
+      "ipaTarget": "/mɛmnæn/",
+      "kind": "main",
+      "filename": "memnan.mp3"
+    },
+    {
+      "word": "minkek",
+      "ttsText": "min-kek",
+      "ipaTarget": "/mɪnkɛk/",
+      "kind": "main",
+      "filename": "minkek.mp3"
+    },
+    {
+      "word": "moga",
+      "ttsText": "moh-gah",
+      "kind": "practice",
+      "filename": "moga.mp3"
+    },
+    {
+      "word": "netmak",
+      "ttsText": "net-mak",
+      "ipaTarget": "/nɛtmæk/",
+      "kind": "main",
+      "filename": "netmak.mp3"
+    },
+    {
+      "word": "nupa",
+      "ttsText": "noo-pah",
+      "kind": "practice",
+      "filename": "nupa.mp3"
+    },
+    {
+      "word": "piknak",
+      "ttsText": "pik-nak",
+      "ipaTarget": "/pɪknæk/",
+      "kind": "main",
+      "filename": "piknak.mp3"
+    },
+    {
+      "word": "ralim",
+      "ttsText": "ral-im",
+      "ipaTarget": "/ɹælɪm/",
+      "kind": "main",
+      "filename": "ralim.mp3"
+    },
+    {
+      "word": "ripak",
+      "ttsText": "rip-ak",
+      "ipaTarget": "/ɹɪpæk/",
+      "kind": "main",
+      "filename": "ripak.mp3"
+    },
+    {
+      "word": "safee",
+      "ttsText": "sah-fee",
+      "kind": "practice",
+      "filename": "safee.mp3"
+    },
+    {
+      "word": "safim",
+      "ttsText": "saf-im",
+      "ipaTarget": "/sæfɪm/",
+      "kind": "main",
+      "filename": "safim.mp3"
+    },
+    {
+      "word": "siten",
+      "ttsText": "sit-en",
+      "ipaTarget": "/sɪtɛn/",
+      "kind": "main",
+      "filename": "siten.mp3"
+    },
+    {
+      "word": "teebo",
+      "ttsText": "tee-boh",
+      "kind": "practice",
+      "filename": "teebo.mp3"
+    },
+    {
+      "word": "thafim",
+      "ttsText": "thaf-im",
+      "ipaTarget": "/θæfɪm/",
+      "kind": "main",
+      "filename": "thafim.mp3"
+    },
+    {
+      "word": "thiten",
+      "ttsText": "thit-en",
+      "ipaTarget": "/θɪtɛn/",
+      "kind": "main",
+      "filename": "thiten.mp3"
+    },
+    {
+      "word": "tomkak",
+      "ttsText": "tom-kak",
+      "ipaTarget": "/tɑmkæk/",
+      "kind": "main",
+      "filename": "tomkak.mp3"
+    },
+    {
+      "word": "vopin",
+      "ttsText": "vop-in",
+      "ipaTarget": "/vɑpɪn/",
+      "kind": "main",
+      "filename": "vopin.mp3"
+    },
+    {
+      "word": "vosim",
+      "ttsText": "vos-im",
+      "ipaTarget": "/vɑsɪm/",
+      "kind": "main",
+      "filename": "vosim.mp3"
+    },
+    {
+      "word": "vrekum",
+      "ttsText": "vre-kum",
+      "ipaTarget": "/vɹɛkʌm/",
+      "kind": "main",
+      "filename": "vrekum.mp3"
+    },
+    {
+      "word": "vrosit",
+      "ttsText": "vro-sit",
+      "ipaTarget": "/vɹɑsɪt/",
+      "kind": "main",
+      "filename": "vrosit.mp3"
+    }
+  ]
+}

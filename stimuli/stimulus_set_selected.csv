@@ -1,0 +1,41 @@
+selected,word,phonology,contrast,contrastGroup,source,syllableCount,syllableTemplate,syllable1,syllable2,phones,phoneLength,orthLength,ipaTarget,ttsText,phonologicalNeighborhoodSize,nearestRealWordDistance,nearestRealWords,englishZipfFrequency,selectionScore
+1,daknik,easy,control,,generated,2,CVC-CVC,dak,nik,D AE K N IH K,6,6,/dæknɪk/,dak-nik,2,1,danek|machnik,0.0,0.2608
+1,deskan,easy,control,,generated,2,CVC-CVC,des,kan,D EH S K AE N,6,6,/dɛskæn/,des-kan,1,1,deskin,0.0,0.6663
+1,dikman,easy,control,,generated,2,CVC-CVC,dik,man,D IH K M AE N,6,6,/dɪkmæn/,dik-man,4,1,dickman|dickmann|dyckman|dykman,0.0,-0.25
+1,dimmek,easy,control,,generated,2,CVC-CVC,dim,mek,D IH M M EH K,6,6,/dɪmmɛk/,dim-mek,1,1,dymek,0.0,0.6663
+1,fakkim,easy,control,,generated,2,CVC-CVC,fak,kim,F AE K K IH M,6,6,/fækkɪm/,fak-kim,0,3,achill|clim|crim|crimm|fact|facts|falck|fax|flim|klim,0.0,1.6094
+1,fapnek,easy,control,,generated,2,CVC-CVC,fap,nek,F AE P N EH K,6,6,/fæpnɛk/,fap-nek,1,1,fanech,0.0,0.6663
+1,fensak,easy,control,,generated,2,CVC-CVC,fen,sak,F EH N S AE K,6,6,/fɛnsæk/,fen-sak,1,1,fenske,0.0,0.6663
+1,finkan,easy,control,,generated,2,CVC-CVC,fin,kan,F IH N K AE N,6,6,/fɪnkæn/,fin-kan,2,1,fineran|finneran,0.0,0.2608
+1,gapkem,easy,control,,generated,2,CVC-CVC,gap,kem,G AE P K EH M,6,6,/gæpkɛm/,gap-kem,0,3,gappa|gaps|pm|prem,0.0,1.6094
+1,hakmen,easy,control,,generated,2,CVC-CVC,hak,men,HH AE K M EH N,6,6,/hækmɛn/,hak-men,2,1,hackman|hackmann,0.0,0.2608
+1,hamkik,easy,control,,generated,2,CVC-CVC,ham,kik,HH AE M K IH K,6,6,/hæmkɪk/,ham-kik,2,1,hamric|hamrick,0.0,0.2608
+1,hanpek,easy,control,,generated,2,CVC-CVC,han,pek,HH AE N P EH K,6,6,/hænpɛk/,han-pek,1,1,henpeck,0.0,0.6663
+1,hektak,easy,control,,generated,2,CVC-CVC,hek,tak,HH EH K T AE K,6,6,/hɛktæk/,hek-tak,1,1,hectic,0.0,0.6663
+1,kempak,easy,control,,generated,2,CVC-CVC,kem,pak,K EH M P AE K,6,6,/kɛmpæk/,kem-pak,3,1,compaq|kempke|rempac,0.0,-0.0269
+1,konmak,easy,control,,generated,2,CVC-CVC,kon,mak,K AA N M AE K,6,6,/kɑnmæk/,kon-mak,3,1,cognac|conrac|contac,0.0,-0.0269
+1,memnan,easy,control,,generated,2,CVC-CVC,mem,nan,M EH M N AE N,6,6,/mɛmnæn/,mem-nan,1,1,memnon,0.0,0.6663
+1,minkek,easy,control,,generated,2,CVC-CVC,min,kek,M IH N K EH K,6,6,/mɪnkɛk/,min-kek,2,1,macek|minntech,0.0,0.2608
+1,netmak,easy,control,,generated,2,CVC-CVC,net,mak,N EH T M AE K,6,6,/nɛtmæk/,net-mak,1,1,netback,0.0,0.6663
+1,piknak,easy,control,,generated,2,CVC-CVC,pik,nak,P IH K N AE K,6,6,/pɪknæk/,pik-nak,3,1,knickknack|picnic|pilnak,0.0,-0.0269
+1,tomkak,easy,control,,generated,2,CVC-CVC,tom,kak,T AA M K AE K,6,6,/tɑmkæk/,tom-kak,2,1,tomcat|tomczak,0.0,0.2608
+1,lalim,hard,r_l,ralim_lalim,generated,2,CVC-CVC,lal,im,L AE L IH M,5,5,/lælɪm/,lal-im,3,1,lathem|salemme|salim,0.0,-0.17
+1,ralim,hard,r_l,ralim_lalim,generated,2,CVC-CVC,ral,im,R AE L IH M,5,5,/ɹælɪm/,ral-im,3,1,rallis|salemme|salim,0.0,-0.17
+1,lipak,hard,r_l,ripak_lipak,generated,2,CVC-CVC,lip,ak,L IH P AE K,5,5,/lɪpæk/,lip-ak,1,1,lipke,0.0,0.5231
+1,ripak,hard,r_l,ripak_lipak,generated,2,CVC-CVC,rip,ak,R IH P AE K,5,5,/ɹɪpæk/,rip-ak,3,1,repack|ripke|ropak,0.0,-0.17
+1,bopin,hard,v_b,vopin_bopin,generated,2,CVC-CVC,bop,in,B AA P IH N,5,5,/bɑpɪn/,bop-in,5,1,bollin|bonnin|botin|coppin|toppin,0.0,0.2355
+1,vopin,hard,v_b,vopin_bopin,generated,2,CVC-CVC,vop,in,V AA P IH N,5,5,/vɑpɪn/,vop-in,3,1,coppin|toppin|vipin,0.0,-0.17
+1,bosim,hard,v_b,vosim_bosim,generated,2,CVC-CVC,bos,im,B AA S IH M,5,5,/bɑsɪm/,bos-im,2,1,basich|basim,0.0,0.1177
+1,vosim,hard,v_b,vosim_bosim,generated,2,CVC-CVC,vos,im,V AA S IH M,5,5,/vɑsɪm/,vos-im,1,1,wasik,0.0,0.5231
+1,safim,hard,theta_s,thafim_safim,generated,2,CVC-CVC,saf,im,S AE F IH M,5,5,/sæfɪm/,saf-im,2,1,salemme|salim,0.0,0.1177
+1,thafim,hard,theta_s,thafim_safim,generated,2,CVC-CVC,thaf,im,TH AE F IH M,5,6,/θæfɪm/,thaf-im,0,2,tham|thang|thanh|thatch|theme|therm|thick|thief|thiem|thieme,0.0,1.6363
+1,siten,hard,theta_s,thiten_siten,generated,2,CVC-CVC,sit,en,S IH T EH N,5,5,/sɪtɛn/,sit-en,3,1,sitek|sitton|sten,0.0,-0.17
+1,thiten,hard,theta_s,thiten_siten,generated,2,CVC-CVC,thit,en,TH IH T EH N,5,6,/θɪtɛn/,thit-en,0,2,ten|teng|tenn|terre|tesch|tesh|tess|tet|tete|thain,0.0,1.6363
+1,klokun,hard,cluster_r_l,krokun_klokun,generated,2,CCV-CVC,klo,kun,K L AA K AH N,6,6,/klɑkʌn/,klo-kun,6,1,claassen|closson|klaassen|kochan|locken|lokken,0.0,0.3096
+1,krokun,hard,cluster_r_l,krokun_klokun,generated,2,CCV-CVC,kro,kun,K R AA K AH N,6,6,/kɹɑkʌn/,kro-kun,4,1,croghan|crossan|crosson|kochan,0.0,-0.0269
+1,klopin,hard,cluster_r_l,kropin_klopin,generated,2,CCV-CVC,klo,pin,K L AA P IH N,6,6,/klɑpɪn/,klo-pin,1,1,coppin,0.0,0.4431
+1,kropin,hard,cluster_r_l,kropin_klopin,generated,2,CCV-CVC,kro,pin,K R AA P IH N,6,6,/kɹɑpɪn/,kro-pin,3,1,coppin|cropping|crossin,0.0,-0.25
+1,brekum,hard,cluster_v_b,vrekum_brekum,generated,2,CCV-CVC,bre,kum,B R EH K AH M,6,6,/bɹɛkʌm/,bre-kum,2,1,beckum|bricom,0.0,0.0377
+1,vrekum,hard,cluster_v_b,vrekum_brekum,generated,2,CCV-CVC,vre,kum,V R EH K AH M,6,6,/vɹɛkʌm/,vre-kum,0,3,acomb|arum|aurum|breck|brehm|brekke|brem|brum|brumm|creque,0.0,1.3863
+1,brosit,hard,cluster_v_b,vrosit_brosit,generated,2,CCV-CVC,bro,sit,B R AA S IH T,6,6,/bɹɑsɪt/,bro-sit,3,1,brockett|brost|crossett,0.0,-0.25
+1,vrosit,hard,cluster_v_b,vrosit_brosit,generated,2,CCV-CVC,vro,sit,V R AA S IH T,6,6,/vɹɑsɪt/,vro-sit,1,1,crossett,0.0,0.4431
