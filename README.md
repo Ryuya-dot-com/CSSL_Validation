@@ -38,9 +38,15 @@ final test accuracy.
     scenarios.
 - `analysis/prepare_audio_qa.py`
   - Creates audio-review CSV tables for manual gTTS/stimulus checking.
+- `analysis/qa_audio_asr.py`
+  - Runs ASR-based pseudoword-audio risk screening when `OPENAI_API_KEY` is
+    available, and records an explicit skipped status otherwise.
 - `analysis/qa_image_similarity.py`
   - Screens generated SVG objects and 5AFC option sets for obvious visual
     similarity collisions.
+- `analysis/qa_image_recognition.py`
+  - Automatically labels generated SVG shape families, screens image
+    nameability risk, and checks 5AFC option sets for shape-label collisions.
 - `analysis/analyze_model_ready.py`
   - Summarizes exported `.xlsx` workbooks from the `ModelReady` sheet for pilot
     checks.
@@ -168,12 +174,21 @@ From this repository root:
 
 ```bash
 python3 CSSL_Validation/analysis/prepare_audio_qa.py
+python3 CSSL_Validation/analysis/qa_audio_asr.py
 python3 CSSL_Validation/analysis/qa_image_similarity.py --participants 80
+python3 CSSL_Validation/analysis/qa_image_recognition.py --participants 80
 python3 CSSL_Validation/analysis/prepilot_readiness.py --participants 80
 ```
 
 These scripts write ignored QA tables under
 `CSSL_Validation/analysis/qa_outputs/`.
+
+`qa_audio_asr.py` uses `gpt-4o-mini-transcribe` through the OpenAI Audio API
+when `OPENAI_API_KEY` is set. `qa_image_recognition.py` runs a deterministic
+SVG-based recognition screen by default; optional `--provider openai-svg` or
+`--provider openai-vision` modes can be used as an additional recognizer layer
+when the required API access, and for vision mode an SVG-to-PNG renderer, are
+available.
 
 To regenerate QA tables and simulation summaries before writing the readiness
 report:

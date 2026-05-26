@@ -6,8 +6,9 @@ outside `CSSL_Validation` unless explicitly configured by a command-line argumen
 Planned outputs:
 
 - `qa_outputs/`
-  - Optional audio/image QA tables produced by `prepare_audio_qa.py` and
-    `qa_image_similarity.py`, plus the consolidated readiness report produced
+  - Optional audio/image QA tables produced by `prepare_audio_qa.py`,
+    `qa_audio_asr.py`, `qa_image_similarity.py`, and
+    `qa_image_recognition.py`, plus the consolidated readiness report produced
     by `prepilot_readiness.py`. This directory is ignored by git.
 - `participant_summaries/`
   - Optional descriptive pilot summaries produced by `analyze_model_ready.py`.
@@ -55,9 +56,22 @@ Before pilot collection:
 
 ```bash
 python3 CSSL_Validation/analysis/prepare_audio_qa.py
+python3 CSSL_Validation/analysis/qa_audio_asr.py
 python3 CSSL_Validation/analysis/qa_image_similarity.py --participants 80
+python3 CSSL_Validation/analysis/qa_image_recognition.py --participants 80
 python3 CSSL_Validation/analysis/prepilot_readiness.py --participants 80
 ```
+
+`qa_audio_asr.py` is an ASR risk screen for pseudoword MP3s. It uses OpenAI
+speech-to-text when `OPENAI_API_KEY` is present and writes
+`skipped_no_api_key` rows otherwise, so the readiness report records that the
+ASR layer still needs to be run.
+
+`qa_image_recognition.py` runs without external dependencies by using the SVG
+generation formula to infer each object's shape label and nameability risk. It
+also checks whether any participant's 5AFC option set contains duplicate
+shape-label families. Optional OpenAI recognizer modes are available for
+additional SVG-text or rendered-image review.
 
 To regenerate QA outputs, scenario simulations, method benchmarks, and the
 readiness report in one command:

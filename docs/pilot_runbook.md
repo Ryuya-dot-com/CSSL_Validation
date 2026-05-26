@@ -26,6 +26,13 @@ The readiness report intentionally treats incomplete manual audio review and
 weak-signal simulation recovery as warnings rather than automatic task failure.
 Formal pilot collection should not start with any `FAIL` rows.
 
+The refresh step also runs ASR and automatic image-recognition QA. In an
+environment without `OPENAI_API_KEY`, the ASR table is still written but marked
+as skipped; run `analysis/qa_audio_asr.py` once with API access before formal
+collection. Image recognition has a deterministic SVG-based layer that runs
+without external dependencies and checks for high-nameability objects and
+same-shape-label collisions in 5AFC option sets.
+
 ## During Pilot
 
 Use Google Chrome only. Record:
@@ -35,6 +42,7 @@ Use Google Chrome only. Record:
 - Chrome version if available,
 - whether the volume check was clear,
 - whether practice instructions were understood,
+- whether any ASR-flagged item sounds ambiguous in the actual testing setup,
 - any item that sounded wrong or looked confusable,
 - whether the final `.xlsx` file downloaded without help.
 

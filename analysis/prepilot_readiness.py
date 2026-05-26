@@ -183,9 +183,16 @@ def overall_status(rows: list[CheckRow]) -> str:
 def run_refresh(args: argparse.Namespace, rows: list[CheckRow]) -> None:
     commands = [
         [sys.executable, str(ROOT / "analysis" / "prepare_audio_qa.py")],
+        [sys.executable, str(ROOT / "analysis" / "qa_audio_asr.py")],
         [
             sys.executable,
             str(ROOT / "analysis" / "qa_image_similarity.py"),
+            "--participants",
+            str(args.participants),
+        ],
+        [
+            sys.executable,
+            str(ROOT / "analysis" / "qa_image_recognition.py"),
             "--participants",
             str(args.participants),
         ],
@@ -355,6 +362,81 @@ def check_audio(rows: list[CheckRow]) -> None:
         add_check(rows, "WARN", "audio", "English-like words", f"review flagged={english_like}")
 
 
+def summary_rows_by_metric(path: Path) -> dict[str, dict[str, str]]:
+    return {row["metric"]: row for row in read_csv_rows(path) if row.get("metric")}
+
+
+def summary_metric_float(summary: dict[str, dict[str, str]], metric: str) -> float | None:
+    row = summary.get(metric)
+    if not row:
+        return None
+    return parse_float(row.get("value"))
+
+
+def summary_metric_detail(summary: dict[str, dict[str, str]], metric: str) -> str:
+    row = summary.get(metric)
+    return row.get("detail", "") if row else ""
+
+
+def check_audio_asr(rows: list[CheckRow]) -> None:
+    summary_path = DEFAULT_OUT_DIR / "audio_asr_summary.csv"
+    summary = summary_rows_by_metric(summary_path)
+    if not summary:
+        add_check(rows, "WARN", "audio", "ASR QA output", "audio_asr_summary.csv not found")
+        return
+
+    completed = int(summary_metric_float(summary, "completedCount") or 0)
+    status_counts = summary.get("statusCounts", {}).get("value", "{}")
+    if completed == 0:
+        add_check(
+            rows,
+            "WARN",
+            "audio",
+            "ASR completion",
+            f"no ASR transcripts completed; statusCounts={status_counts}",
+        )
+    else:
+        add_check(
+            rows,
+            "PASS",
+            "audio",
+            "ASR completion",
+            f"{completed} audio files transcribed; statusCounts={status_counts}",
+        )
+
+    transcript_collisions = int(summary_metric_float(summary, "transcriptCollisionCount") or 0)
+    english_like = int(summary_metric_float(summary, "englishLikeTranscriptRiskCount") or 0)
+    closest_other = int(summary_metric_float(summary, "closestOtherTargetRiskCount") or 0)
+    if completed == 0:
+        add_check(rows, "INFO", "audio", "ASR transcript collisions", "not evaluated because no ASR transcripts completed")
+    elif transcript_collisions:
+        add_check(
+            rows,
+            "WARN",
+            "audio",
+            "ASR transcript collisions",
+            f"{transcript_collisions} transcript groups collapsed across targets; {summary_metric_detail(summary, 'transcriptCollisionCount')}",
+        )
+    else:
+        add_check(rows, "PASS", "audio", "ASR transcript collisions", "no completed ASR transcript collisions")
+    if english_like:
+        add_check(
+            rows,
+            "WARN",
+            "audio",
+            "ASR English-like transcript risk",
+            f"{english_like} items flagged; {summary_metric_detail(summary, 'englishLikeTranscriptRiskCount')}",
+        )
+    if closest_other:
+        add_check(
+            rows,
+            "WARN",
+            "audio",
+            "ASR nearest-target risk",
+            f"{closest_other} items closer to another target transcript; {summary_metric_detail(summary, 'closestOtherTargetRiskCount')}",
+        )
+
+
 def check_images(rows: list[CheckRow]) -> None:
     image_paths = sorted((ROOT / "images" / "objects").glob("*.svg"))
     main_images = [path for path in image_paths if path.name.startswith("object_")]
@@ -385,6 +467,46 @@ def check_images(rows: list[CheckRow]) -> None:
         "images",
         "5AFC image similarity",
         f"flagged option sets={flagged_option_sets}/{checked}",
+    )
+
+
+def check_image_recognition(rows: list[CheckRow]) -> None:
+    summary_path = DEFAULT_OUT_DIR / "image_recognition_summary.csv"
+    summary = summary_rows_by_metric(summary_path)
+    if not summary:
+        add_check(rows, "WARN", "images", "image recognition QA output", "image_recognition_summary.csv not found")
+        return
+
+    checked = int(summary_metric_float(summary, "testOptionSetsChecked") or 0)
+    same_label = int(summary_metric_float(summary, "sameLabelFlaggedOptionSets") or 0)
+    high_nameability = int(summary_metric_float(summary, "highNameabilityImageCount") or 0)
+    recognizer_provider = summary.get("recognizerProvider", {}).get("value", "none")
+    recognizer_completed = int(summary_metric_float(summary, "recognizerCompletedCount") or 0)
+    recognizer_status = summary.get("recognizerStatusCounts", {}).get("value", "{}")
+
+    add_check(
+        rows,
+        "FAIL" if same_label else "PASS",
+        "images",
+        "5AFC automatic shape-label collisions",
+        f"same-label option sets={same_label}/{checked}; {summary_metric_detail(summary, 'sameLabelFlaggedOptionSets')}",
+    )
+    if high_nameability:
+        add_check(
+            rows,
+            "WARN",
+            "images",
+            "automatic image nameability risk",
+            f"{high_nameability} main images exceed threshold; {summary_metric_detail(summary, 'highNameabilityImageCount')}",
+        )
+    else:
+        add_check(rows, "PASS", "images", "automatic image nameability risk", "no high-nameability main images")
+    add_check(
+        rows,
+        "INFO",
+        "images",
+        "optional image recognizer",
+        f"provider={recognizer_provider}, completed={recognizer_completed}, statusCounts={recognizer_status}",
     )
 
 
@@ -722,7 +844,9 @@ def main() -> None:
     check_config(rows)
     check_stimulus_lists(rows)
     check_audio(rows)
+    check_audio_asr(rows)
     check_images(rows)
+    check_image_recognition(rows)
     check_schedules(rows, args.participants)
     check_simulation_outputs(rows, args.posterior_threshold)
     for workbook_path in args.workbook:

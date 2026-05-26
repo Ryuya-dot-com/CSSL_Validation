@@ -78,9 +78,24 @@ If pilot participants still confuse visual neighbors, the next correction should
 be to increase the number of outline families or manually replace the confusing
 SVGs, not to move to real-object pictures.
 
+Automatic image recognition is used as a QA screen, not as a substitute for
+manual inspection. The current script first infers each generated object's
+shape family directly from the SVG generation formula, estimates whether the
+shape is likely to receive a simple verbal label such as `star` or `ring`, and
+checks every deterministic 5AFC option set for duplicate shape-label families.
+Optional OpenAI recognizer modes can add SVG-text or rendered-image review, but
+the dependency-free SVG screen remains the required reproducible layer.
+
 ## Audio Policy
 
 The current audio files are generated with gTTS from `ttsText` respellings.
 This is more stable than browser speech synthesis and produces static MP3 files
 for deployment. The MP3s still require human review because pseudoword
 pronunciation can drift from the target IPA.
+
+ASR is added as a second audio QA layer. Because these are pseudowords, the ASR
+transcript is not treated as ground truth. Instead, it flags risk patterns:
+multiple targets collapsing to the same transcript, transcripts that look like
+ordinary English words or phrases, and cases where the transcript is closer to a
+different target than to the intended target. Any such flag should trigger
+listening review before formal pilot collection.

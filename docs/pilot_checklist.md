@@ -6,6 +6,9 @@ catch design failures that would make switching estimates uninterpretable.
 ## Audio
 
 - Confirm every MP3 is audible in Google Chrome.
+- Run the ASR screen and review any transcript collisions, English-like
+  transcripts, or cases where ASR hears another target more clearly than the
+  intended item.
 - Check whether each pseudoword pronunciation matches the intended TTS
   respelling closely enough for the task goal.
 - Pay special attention to hard contrasts: `r_l`, `v_b`, `theta_s`,
@@ -15,6 +18,9 @@ catch design failures that would make switching estimates uninterpretable.
 ## Images
 
 - Confirm all SVG objects load in the task.
+- Run the automatic recognition screen and review any high-nameability images.
+- Confirm the automatic recognition screen reports no same-shape-label
+  collisions within 5AFC option sets.
 - Check that no 5AFC option set contains two images that are hard to distinguish
   at the displayed size.
 - Check whether any abstract object invites an obvious verbal label that could
@@ -45,8 +51,14 @@ catch design failures that would make switching estimates uninterpretable.
 - Run `analysis/prepilot_readiness.py --participants 80 --refresh` before the
   first pilot participant.
 - Confirm `prepilot_readiness_report.md` has no `FAIL` rows.
+- If the readiness report says ASR was skipped because no API key was available,
+  run `analysis/qa_audio_asr.py` once in an environment with `OPENAI_API_KEY`
+  before formal pilot collection.
 - Treat unresolved audio-review warnings as a block for formal pilot collection,
   even if internal dry runs continue.
+- Treat high image-nameability warnings as prompts for targeted manual review;
+  they are not automatic failures unless they create repeated strategy shortcuts
+  or 5AFC confusions.
 - Treat weak-signal simulation warnings as a modeling caution: avoid strong
   HMM-onset claims unless pilot data show enough non-ceiling, non-floor signal.
 

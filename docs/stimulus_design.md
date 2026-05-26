@@ -76,6 +76,10 @@ Before using the set in data collection:
 
 - Remove items that sound like real English words to native or advanced speakers.
 - Listen to generated audio and replace TTS respellings where needed.
+- Run ASR-based audio QA and inspect transcript collisions or English-like
+  transcriptions as risk flags, not as automatic pronunciation ground truth.
+- Run automatic image-recognition QA and inspect highly nameable generated
+  shapes, especially if pilot participants report verbal-label strategies.
 - Keep minimal-pair members in the same counterbalancing family.
 - Do not mix real words and pseudowords in the same validation run unless the
   analysis explicitly models prior vocabulary knowledge.
