@@ -80,12 +80,17 @@ final test accuracy.
 - `docs/analysis_method_catalog.md`
   - Broader analysis-method catalog spanning CSSL-inspired models, state-space
     models, change-point/survival analysis, RL, GLMM, IRT, and RT-aware methods.
+- `docs/primary_literature_sources.md`
+  - Primary-source reading list for CSSL experiments, PbV, Bayesian/associative
+    models, and computational-linguistic alignment approaches.
 - `docs/pilot_checklist.md`
   - Pilot QA checklist for audio, images, task flow, export, and model recovery.
 - `docs/pilot_runbook.md`
   - Step-by-step pilot procedure and go/revise criteria.
 - `analysis/README.md`
   - Planned modeling outputs and file conventions.
+- `references/primary_sources.bib`
+  - BibTeX entries for the primary sources used in the modeling notes.
 
 ## Stimulus Policy
 
