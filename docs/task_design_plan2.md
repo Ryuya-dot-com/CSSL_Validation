@@ -13,7 +13,9 @@ Plan 2 is the adopted validation design.
 - Each word appears 3 times per learning block.
 - Each learning trial presents 3 objects and 3 spoken pseudowords.
 - Each block is followed by a click-based 5AFC test.
+- 5AFC has a 30-second response window.
 - A short practice session uses separate practice words and objects.
+- Practice begins with a volume check.
 - No familiarization task.
 
 ## Trial Counts
@@ -92,11 +94,30 @@ should prioritize interpretability:
 For control targets, foils should include at least one hard item and multiple
 control items to avoid making hard/easy status an obvious answer cue.
 
+### Time Limit And No Response
+
+The validation task uses a 30-second response window for 5AFC trials. This is
+not meant to force fast decisions; it prevents the experiment from stalling and
+makes non-completion explicit. If the participant does not respond within the
+window, the row is saved as:
+
+```text
+responseSource = timeout
+noResponse = true
+responseTimedOut = true
+correct = false
+```
+
+The trial then advances automatically. Main learning responses remain untimed
+because they are used to infer trial-by-trial learning state and should not be
+lost due to a strict deadline.
+
 ## Practice Session
 
 Practice is included to make the response format unambiguous without changing
 the main learning statistics.
 
+- Practice starts with an audio volume check.
 - Practice uses separate pseudowords and separate abstract objects.
 - Practice includes one 3-object learning example and one 5AFC example.
 - Practice responses are saved in the workbook but excluded from model fitting.
@@ -135,6 +156,12 @@ The browser task writes one Excel workbook (`.xlsx`) containing:
 - `PairMap`: word-object mapping and visual-family metadata.
 - `LearningSchedule` / `TestSchedule`: deterministic schedules.
 - `Config`, `Summary`, and `Notes`.
+
+## Browser
+
+The task is restricted to Google Chrome. Browser audio policies, MP3 playback,
+download behavior, and timing APIs differ across browsers; restricting the
+runtime reduces avoidable variance in audio playback and response collection.
 
 ## Randomization
 

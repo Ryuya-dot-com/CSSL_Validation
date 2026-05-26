@@ -256,9 +256,16 @@ button:focus-visible {
   line-height: 1.65;
 }
 
-.message-panel .primary-button {
+.message-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.message-panel .primary-button,
+.message-panel .secondary-button {
   width: min(240px, 100%);
-  justify-self: center;
 }
 
 .trial-panel {

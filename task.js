@@ -2,6 +2,7 @@
 
 const LIST_IDS = ["A", "B", "C", "D"];
 const UINT_32 = 4294967296;
+const TEST_RESPONSE_TIMEOUT_MS = 30000;
 const PRACTICE_WORDS = [
   { listWordId: 901, objectId: 901, word: "nupa", ttsText: "noo-pah", contrast: "practice", contrastGroup: "", phonology: "practice" },
   { listWordId: 902, objectId: 902, word: "teebo", ttsText: "tee-boh", contrast: "practice", contrastGroup: "", phonology: "practice" },
@@ -42,6 +43,12 @@ document.addEventListener("DOMContentLoaded", init);
 async function init() {
   cacheElements();
   bindStaticEvents();
+
+  if (!isSupportedChrome()) {
+    showUnsupportedBrowser();
+    return;
+  }
+
   setSetupStatus("刺激リストを読み込んでいます。");
 
   try {
@@ -80,6 +87,7 @@ function cacheElements() {
     "messageTitle",
     "messageBody",
     "continueButton",
+    "secondaryButton",
     "trialPanel",
     "trialCueText",
     "replayButton",
@@ -158,6 +166,7 @@ async function prepareParticipant(participantId, listOverride) {
 async function runExperiment() {
   updateProgress("待機", "準備", 0, state.totalTrials);
 
+  await runVolumeCheck();
   await runTutorial();
 
   for (let block = 1; block <= state.config.learning.blocks; block += 1) {
@@ -189,6 +198,70 @@ async function runExperiment() {
   }
 
   finishExperiment();
+}
+
+async function runVolumeCheck() {
+  updateProgress("音量", "音量チェック", 0, state.totalTrials);
+  els.trialPanel.classList.add("hidden");
+  els.messagePanel.classList.remove("hidden");
+  els.continueButton.classList.remove("hidden");
+  els.secondaryButton.classList.add("hidden");
+  els.messageTitle.textContent = "音量チェック";
+  els.messageBody.textContent = "音声を再生します。聞こえたらそのまま進んでください。聞こえない場合は、端末やブラウザの音量を調整してからもう一度再生してください。";
+  els.continueButton.textContent = "音声を再生";
+  els.taskTitle.textContent = "音量チェック";
+
+  let playCount = 0;
+  return new Promise((resolve) => {
+    const cleanup = () => {
+      els.continueButton.removeEventListener("click", onPrimary);
+      els.secondaryButton.removeEventListener("click", onReplay);
+      els.secondaryButton.classList.add("hidden");
+      els.messagePanel.classList.add("hidden");
+      els.trialPanel.classList.remove("hidden");
+    };
+
+    const playAudio = async () => {
+      els.continueButton.disabled = true;
+      els.secondaryButton.disabled = true;
+      const startedAtMs = performance.now();
+      const audioResult = await playWord(PRACTICE_WORDS[0]);
+      playCount += 1;
+      state.practiceEvents.push({
+        participantId: state.participantId,
+        phase: "volume_check",
+        practiceEvent: state.practiceEvents.length + 1,
+        word: PRACTICE_WORDS[0].word,
+        playCount,
+        audioSource: audioResult.audioSource,
+        audioPlayOk: audioResult.audioPlayOk,
+        startedAtMs: roundMs(startedAtMs),
+        endedAtMs: roundMs(performance.now()),
+      });
+      els.messageBody.textContent = "音声が聞こえた場合は続けてください。聞こえない場合は音量を調整し、もう一度再生してください。";
+      els.continueButton.textContent = "聞こえたので続ける";
+      els.continueButton.disabled = false;
+      els.secondaryButton.textContent = "もう一度再生";
+      els.secondaryButton.disabled = false;
+      els.secondaryButton.classList.remove("hidden");
+    };
+
+    const onPrimary = async () => {
+      if (playCount === 0) {
+        await playAudio();
+        return;
+      }
+      cleanup();
+      resolve();
+    };
+
+    const onReplay = async () => {
+      await playAudio();
+    };
+
+    els.continueButton.addEventListener("click", onPrimary);
+    els.secondaryButton.addEventListener("click", onReplay);
+  });
 }
 
 async function runTutorial() {
@@ -265,10 +338,17 @@ async function runPracticeTestTrial() {
   const audioResult = await playWord(target);
   const responseWindowStartMs = performance.now();
   setObjectButtonsEnabled(true);
-  const response = await waitForObjectChoice(options, { allowKeyboard: false });
+  const response = await waitForObjectChoice(options, {
+    allowKeyboard: false,
+    timeoutMs: TEST_RESPONSE_TIMEOUT_MS,
+  });
   const respondedAtMs = performance.now();
-  const correct = response.objectId === target.objectId;
-  markSelectedObject(response.objectId);
+  const correct = response.objectId !== null && response.objectId === target.objectId;
+  if (response.objectId !== null) {
+    markSelectedObject(response.objectId);
+  } else {
+    setCueText("時間切れ");
+  }
   setObjectButtonsEnabled(false);
   state.practiceEvents.push({
     participantId: state.participantId,
@@ -282,8 +362,11 @@ async function runPracticeTestTrial() {
     responseSource: response.source,
     responseClientX: response.clientX,
     responseClientY: response.clientY,
+    responseTimedOut: response.timedOut,
+    noResponse: response.noResponse,
     correct,
     rtMs: Math.round(respondedAtMs - responseWindowStartMs),
+    responseTimeoutMs: TEST_RESPONSE_TIMEOUT_MS,
     audioSource: audioResult.audioSource,
     audioPlayOk: audioResult.audioPlayOk,
   });
@@ -417,11 +500,18 @@ async function runTestTrial(trial) {
 
   setCueText("選択");
   setObjectButtonsEnabled(true);
-  const response = await waitForObjectChoice(trial.optionObjectIds, { allowKeyboard: false });
+  const response = await waitForObjectChoice(trial.optionObjectIds, {
+    allowKeyboard: false,
+    timeoutMs: TEST_RESPONSE_TIMEOUT_MS,
+  });
   const respondedAtMs = performance.now();
-  const correct = response.objectId === trial.targetObjectId;
+  const correct = response.objectId !== null && response.objectId === trial.targetObjectId;
 
-  markSelectedObject(response.objectId);
+  if (response.objectId !== null) {
+    markSelectedObject(response.objectId);
+  } else {
+    setCueText("時間切れ");
+  }
   setObjectButtonsEnabled(false);
   els.replayButton.disabled = true;
   els.replayButton.classList.add("hidden");
@@ -450,8 +540,11 @@ async function runTestTrial(trial) {
     responseSource: response.source,
     responseClientX: response.clientX,
     responseClientY: response.clientY,
+    responseTimedOut: response.timedOut,
+    noResponse: response.noResponse,
     correct,
     rtMs: Math.round(respondedAtMs - responseWindowStartMs),
+    responseTimeoutMs: TEST_RESPONSE_TIMEOUT_MS,
     replayCount,
     audioSource: firstAudioResult.audioSource,
     audioPlayOk: firstAudioResult.audioPlayOk,
@@ -488,12 +581,15 @@ function showFatalError(error) {
   els.messageTitle.textContent = "実行できません";
   els.messageBody.textContent = error && error.message ? error.message : String(error);
   els.continueButton.classList.add("hidden");
+  els.secondaryButton.classList.add("hidden");
 }
 
 function showGate(title, body, buttonText) {
   els.trialPanel.classList.add("hidden");
   els.messagePanel.classList.remove("hidden");
   els.continueButton.classList.remove("hidden");
+  els.secondaryButton.classList.add("hidden");
+  els.continueButton.disabled = false;
   els.messageTitle.textContent = title;
   els.messageBody.textContent = body;
   els.continueButton.textContent = buttonText;
@@ -559,11 +655,15 @@ function waitForObjectChoice(validObjectIds, options) {
   const valid = new Set(validObjectIds.map(Number));
 
   return new Promise((resolve) => {
+    let timeoutId = null;
     const cleanup = () => {
       for (const button of buttons) {
         button.removeEventListener("click", onClick);
       }
       document.removeEventListener("keydown", onKeyDown);
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+      }
     };
 
     const choose = (button, source, event = null) => {
@@ -581,6 +681,8 @@ function waitForObjectChoice(validObjectIds, options) {
         source,
         clientX: event ? Math.round(event.clientX) : null,
         clientY: event ? Math.round(event.clientY) : null,
+        timedOut: false,
+        noResponse: false,
       });
     };
 
@@ -598,6 +700,21 @@ function waitForObjectChoice(validObjectIds, options) {
       button.addEventListener("click", onClick);
     }
     document.addEventListener("keydown", onKeyDown);
+
+    if (Number.isFinite(options.timeoutMs) && options.timeoutMs > 0) {
+      timeoutId = window.setTimeout(() => {
+        cleanup();
+        resolve({
+          objectId: null,
+          position: null,
+          source: "timeout",
+          clientX: null,
+          clientY: null,
+          timedOut: true,
+          noResponse: true,
+        });
+      }, options.timeoutMs);
+    }
   });
 }
 
@@ -1003,6 +1120,27 @@ function setSetupStatus(message, isError = false) {
   els.setupStatus.classList.toggle("error", isError);
 }
 
+function isSupportedChrome() {
+  const userAgent = navigator.userAgent || "";
+  const vendor = navigator.vendor || "";
+  const brands = navigator.userAgentData && Array.isArray(navigator.userAgentData.brands)
+    ? navigator.userAgentData.brands
+    : [];
+  const hasGoogleChromeBrand = brands.some((brand) => brand.brand === "Google Chrome");
+  const hasChromeUa = /Chrome\//.test(userAgent) && /Google Inc/.test(vendor);
+  const blockedChromiumFamily = /Edg\/|OPR\/|Opera|Firefox\/|CriOS|FxiOS/.test(userAgent);
+  return (hasGoogleChromeBrand || hasChromeUa) && !blockedChromiumFamily;
+}
+
+function showUnsupportedBrowser() {
+  const setupTitle = document.getElementById("setupTitle");
+  if (setupTitle) {
+    setupTitle.textContent = "Chromeで開いてください";
+  }
+  els.startButton.disabled = true;
+  setSetupStatus("この課題はGoogle Chromeのみ対応です。Google Chromeで開き直してください。", true);
+}
+
 function buildExportPayload() {
   return {
     schema: "cssl-validation-plan2-browser-export-v1",
@@ -1079,6 +1217,14 @@ function summaryRows() {
     metric: "testTrialCount",
     value: summary.testTrialCount,
     scope: "all 5AFC trials",
+  }, {
+    metric: "testNoResponseCount",
+    value: summary.testNoResponseCount,
+    scope: "all 5AFC trials",
+  }, {
+    metric: "testTimeoutCount",
+    value: summary.testTimeoutCount,
+    scope: "all 5AFC trials",
   }];
 
   for (const [block, data] of Object.entries(summary.testByBlock)) {
@@ -1088,6 +1234,8 @@ function summaryRows() {
       value: data.accuracy,
       correct: data.correct,
       total: data.total,
+      noResponse: data.noResponse,
+      timeout: data.timeout,
       scope: "5AFC by block",
     });
   }
@@ -1118,10 +1266,12 @@ function keyValueRows(value, prefix = "") {
 
 function notesRows() {
   return [
+    { sheet: "General", note: "The task is intended for Google Chrome only; other browsers are blocked at startup." },
+    { sheet: "Practice", note: "The first practice entry is the volume check. Exclude all practice rows from model fitting." },
     { sheet: "Data", note: "5AFC test trials. Primary block-level outcome and Berens-style first-correct summaries can be computed from this sheet." },
+    { sheet: "Data", note: `5AFC response timeout is ${TEST_RESPONSE_TIMEOUT_MS} ms. Timeout rows are saved with noResponse=true, responseSource=timeout, and correct=false.` },
     { sheet: "LearningEvents", note: "One row per spoken word during learning. This is the primary sheet for encounter-index switching analyses." },
     { sheet: "LearningTrials", note: "One row per 3-word/3-object learning context." },
-    { sheet: "Practice", note: "Tutorial responses only. Exclude from model fitting." },
     { sheet: "PairMap", note: "Participant-specific word-object mapping, phonological condition, and visual family." },
     { sheet: "LearningSchedule", note: "Deterministic schedule generated from participant ID. Same seed reproduces this schedule." },
     { sheet: "TestSchedule", note: "Deterministic 5AFC target and option order." },
@@ -1132,10 +1282,12 @@ function buildSummary() {
   const byBlock = {};
   for (const row of state.testData) {
     if (!byBlock[row.block]) {
-      byBlock[row.block] = { correct: 0, total: 0, accuracy: 0 };
+      byBlock[row.block] = { correct: 0, total: 0, noResponse: 0, timeout: 0, accuracy: 0 };
     }
     byBlock[row.block].total += 1;
     byBlock[row.block].correct += row.correct ? 1 : 0;
+    byBlock[row.block].noResponse += row.noResponse ? 1 : 0;
+    byBlock[row.block].timeout += row.responseTimedOut ? 1 : 0;
   }
   for (const block of Object.keys(byBlock)) {
     byBlock[block].accuracy = byBlock[block].total
@@ -1146,6 +1298,8 @@ function buildSummary() {
     learningEventCount: state.learningEvents.length,
     learningTrialCount: state.learningTrials.length,
     testTrialCount: state.testData.length,
+    testNoResponseCount: state.testData.filter((row) => row.noResponse).length,
+    testTimeoutCount: state.testData.filter((row) => row.responseTimedOut).length,
     testByBlock: byBlock,
   };
 }

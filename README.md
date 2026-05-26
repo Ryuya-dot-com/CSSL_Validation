@@ -84,7 +84,9 @@ The adopted task design is Plan 2:
 - 3 encounters per word per block.
 - 3 words and 3 objects per learning trial.
 - Click-based 5AFC test after each learning block.
-- Short practice session with separate stimuli.
+- Chrome-only browser gate.
+- Volume check and short practice session with separate stimuli.
+- 30-second 5AFC response window; timeouts are saved as no response.
 - No familiarization task.
 
 ## Regenerate Stimuli

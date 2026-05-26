@@ -33,6 +33,30 @@ It teaches only the response rule:
 
 Practice data are exported for QA but excluded from model fitting.
 
+## 5AFC Timing And Missing Responses
+
+Trueswell et al. (2013) used click responses and logged response timing and
+accuracy without feedback. Recent non-native CSL work also records response
+time and treats very slow responses as problematic in analysis; for example, Ge
+et al. (2025) excluded individual responses lasting over 30 seconds.
+
+For this validation task, the practical compromise is to use a 30-second 5AFC
+window. A timeout is not imputed as a choice. It is saved explicitly as
+`noResponse=true`, `responseSource=timeout`, and `correct=false`. This preserves
+the retrieval failure for aptitude summaries and PbV-style first-correct
+analyses while preventing the browser task from stalling.
+
+Learning-phase responses remain untimed because the primary switching analysis
+uses those trial-by-trial responses, and a short deadline would create avoidable
+missingness in the main process measure.
+
+## Browser And Audio Check
+
+The task is restricted to Google Chrome. This keeps audio playback, MP3 support,
+download behavior, and high-resolution timing behavior more consistent across
+participants. The first task screen is an audio volume check using a practice
+pseudoword, so participants can adjust volume before any analyzable trials.
+
 ## Visual Stimulus Policy
 
 Real pictures are not ideal here because familiar objects invite existing labels

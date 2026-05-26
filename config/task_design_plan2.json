@@ -30,6 +30,7 @@
   },
   "practice": {
     "enabled": true,
+    "startsWithVolumeCheck": true,
     "usesSeparatePracticeStimuli": true,
     "learningPracticeTrials": 1,
     "testPracticeTrials": 1,
@@ -42,7 +43,13 @@
     "testOptions": 5,
     "testTrialsPerBlock": 20,
     "testTrialsTotal": 100,
-    "testAfterEachLearningBlock": true
+    "testAfterEachLearningBlock": true,
+    "responseTimeoutMs": 30000,
+    "timeoutHandling": "record noResponse=true, responseSource=timeout, correct=false, then auto-advance"
+  },
+  "browser": {
+    "supportedBrowser": "Google Chrome only",
+    "blockUnsupportedBrowsers": true
   },
   "timingAxisForSwitchingModels": {
     "primary": "wordEncounterIndex_1_to_15",
