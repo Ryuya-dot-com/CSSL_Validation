@@ -25,6 +25,14 @@ accumulates, including some benefit even after previous incorrect responses.
 
 Start simple and only move to richer latent-state models if the data support it.
 
+0. Simulation-based design recovery
+   - Simulate plausible `explore`, `associative`, and `pbv` trajectories under
+     the exact Plan 2 schedule.
+   - Estimate the latent states with a fixed-parameter HMM.
+   - Inspect whether true PbV onset can be recovered within 1-2 encounters.
+   - Use this before data collection to decide whether the task has enough
+     temporal information for switching estimates.
+
 1. Contingent-response summaries
    - Estimate `P(correct_t | previous_correct_t-1)`.
    - Estimate `P(correct_t | previous_incorrect_t-1)`.
@@ -64,6 +72,9 @@ logit(pi_t) =
 
 - `pbv_onset_block`: first block where posterior PbV probability exceeds a
   preregistered threshold.
+- `pbv_onset_encounter`: first encounter where posterior PbV probability exceeds
+  the threshold; this is preferred for Plan 2 because each word has 15 learning
+  encounters.
 - `pbv_stability`: probability of staying in PbV after entering it.
 - `assoc_to_pbv_transition`: estimated transition tendency from associative to
   PbV state.
@@ -83,3 +94,21 @@ history in the export.
 For Plan 2, switch timing should primarily be estimated over `encounterIndex`
 1 to 15 rather than only over block 1 to 5. Blocks are useful for summaries, but
 encounter-level indexing gives the model enough temporal resolution.
+
+The browser export includes a `ModelReady` sheet to reduce ambiguity at the
+analysis stage. It places learning and 5AFC observations in chronological order
+and adds numeric flags such as `previousCorrect`,
+`sameResponseAsPrevious`, `stayedAfterPreviousCorrect`, and
+`switchedAfterPreviousIncorrect`. These fields are intended to support both
+simple contingency checks and later HMM/state-space analyses.
+
+## HMM Use Criteria
+
+Do not treat an HMM as the first analysis just because the scientific question
+involves hidden states. Use it only if the simulation and pilot data show that:
+
+- there are enough non-ceiling, non-floor responses across encounters,
+- the posterior onset estimate is not dominated by the prior or threshold,
+- hard and easy items show interpretable but not degenerate differences,
+- no-response/timeouts are rare enough or explicitly modeled,
+- simpler contingency summaries point in the same qualitative direction.

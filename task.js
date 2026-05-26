@@ -1159,6 +1159,7 @@ function buildExportPayload() {
     LearningTrials: state.learningTrials,
     LearningEvents: state.learningEvents,
     Data: state.testData,
+    ModelReady: buildModelReadyRows(),
     Summary: buildSummary(),
   };
 }
@@ -1192,6 +1193,7 @@ function buildWorkbookSheets() {
     { name: "Metadata", rows: metadata },
     { name: "Summary", rows: summaryRows() },
     { name: "Data", rows: state.testData.map(flattenExportRow) },
+    { name: "ModelReady", rows: buildModelReadyRows() },
     { name: "LearningEvents", rows: state.learningEvents.map(flattenExportRow) },
     { name: "LearningTrials", rows: state.learningTrials.map(flattenExportRow) },
     { name: "Practice", rows: state.practiceEvents.map(flattenExportRow) },
@@ -1201,6 +1203,203 @@ function buildWorkbookSheets() {
     { name: "Config", rows: keyValueRows(state.config) },
     { name: "Notes", rows: notesRows() },
   ];
+}
+
+function buildModelReadyRows() {
+  const rows = [];
+  const learningByBlock = groupRowsByNumber(state.learningEvents, "block");
+  const testByBlock = groupRowsByNumber(state.testData, "block");
+  const latestLearningByPairEncounter = new Map();
+
+  for (const event of state.learningEvents) {
+    latestLearningByPairEncounter.set(`${event.pairId}:${event.encounterIndex}`, event);
+  }
+
+  let observationSeq = 0;
+  const blockCount = state.config && state.config.learning
+    ? Number(state.config.learning.blocks)
+    : 0;
+
+  for (let block = 1; block <= blockCount; block += 1) {
+    const learningRows = (learningByBlock.get(block) || [])
+      .slice()
+      .sort((left, right) => left.eventSeq - right.eventSeq);
+    for (const event of learningRows) {
+      observationSeq += 1;
+      rows.push(modelReadyLearningRow(event, observationSeq));
+    }
+
+    const testRows = (testByBlock.get(block) || [])
+      .slice()
+      .sort((left, right) => left.blockTrial - right.blockTrial);
+    for (const trial of testRows) {
+      observationSeq += 1;
+      const previous = latestLearningByPairEncounter.get(
+        `${trial.targetPairId}:${trial.encountersCompletedForWord}`,
+      ) || null;
+      rows.push(modelReadyTestRow(trial, previous, observationSeq));
+    }
+  }
+
+  return rows;
+}
+
+function modelReadyLearningRow(event, observationSeq) {
+  const sameAsPrevious = sameResponseFlag(event.responseObjectId, event.previousResponseObjectId);
+  return {
+    participantId: event.participantId,
+    seed: event.seed,
+    seedHex12: event.seedHex12,
+    listId: event.listId,
+    observationSeq,
+    observationType: "learning_3afc",
+    block: event.block,
+    blockTrial: event.blockTrial,
+    wordEventInTrial: event.wordEventInTrial,
+    pairId: event.pairId,
+    word: event.word,
+    targetObjectId: event.targetObjectId,
+    contrast: event.contrast,
+    contrastGroup: event.contrastGroup,
+    phonology: event.phonology,
+    encounterIndex: event.encounterIndex,
+    encountersCompletedForWord: event.encounterIndex,
+    choiceSetSize: 3,
+    chanceLevel: roundNumber(1 / 3, 6),
+    optionObjectIds: jsonCell(event.contextObjectIds),
+    optionPairIds: jsonCell(event.contextPairIds),
+    targetPosition: event.targetPosition,
+    responseObjectId: event.responseObjectId,
+    responsePosition: event.responsePosition,
+    responseSource: event.responseSource,
+    correct: boolFlag(event.correct),
+    noResponse: 0,
+    timedOut: 0,
+    rtMs: event.rtMs,
+    responseTimeoutMs: "",
+    previousResponseObjectId: blankNull(event.previousResponseObjectId),
+    previousCorrect: boolFlag(event.previousCorrect),
+    previousIncorrect: inverseBoolFlag(event.previousCorrect),
+    previousRtMs: blankNull(event.previousRtMs),
+    hasPreviousForWord: event.previousCorrect === null ? 0 : 1,
+    sameResponseAsPrevious: sameAsPrevious,
+    switchedFromPreviousResponse: inverseFlag(sameAsPrevious),
+    stayedAfterPreviousCorrect: conditionalFlag(event.previousCorrect === true, sameAsPrevious),
+    switchedAfterPreviousIncorrect: conditionalFlag(event.previousCorrect === false, inverseFlag(sameAsPrevious)),
+    audioSource: event.audioSource,
+    audioPlayOk: boolFlag(event.audioPlayOk),
+  };
+}
+
+function modelReadyTestRow(trial, previous, observationSeq) {
+  const previousResponseObjectId = previous ? previous.responseObjectId : null;
+  const previousCorrect = previous ? previous.correct : null;
+  const sameAsPrevious = sameResponseFlag(trial.responseObjectId, previousResponseObjectId);
+  return {
+    participantId: trial.participantId,
+    seed: trial.seed,
+    seedHex12: trial.seedHex12,
+    listId: trial.listId,
+    observationSeq,
+    observationType: "test_5afc",
+    block: trial.block,
+    blockTrial: trial.blockTrial,
+    wordEventInTrial: "",
+    pairId: trial.targetPairId,
+    word: trial.targetWord,
+    targetObjectId: trial.targetObjectId,
+    contrast: trial.contrast,
+    contrastGroup: trial.contrastGroup,
+    phonology: trial.phonology,
+    encounterIndex: "",
+    encountersCompletedForWord: trial.encountersCompletedForWord,
+    choiceSetSize: 5,
+    chanceLevel: 0.2,
+    optionObjectIds: jsonCell(trial.optionObjectIds),
+    optionPairIds: jsonCell(trial.optionPairIds),
+    targetPosition: trial.targetPosition,
+    responseObjectId: blankNull(trial.responseObjectId),
+    responsePosition: blankNull(trial.responsePosition),
+    responseSource: trial.responseSource,
+    correct: boolFlag(trial.correct),
+    noResponse: boolFlag(trial.noResponse),
+    timedOut: boolFlag(trial.responseTimedOut),
+    rtMs: trial.rtMs,
+    responseTimeoutMs: trial.responseTimeoutMs,
+    previousResponseObjectId: blankNull(previousResponseObjectId),
+    previousCorrect: boolFlag(previousCorrect),
+    previousIncorrect: inverseBoolFlag(previousCorrect),
+    previousRtMs: previous ? previous.rtMs : "",
+    hasPreviousForWord: previous ? 1 : 0,
+    sameResponseAsPrevious: sameAsPrevious,
+    switchedFromPreviousResponse: inverseFlag(sameAsPrevious),
+    stayedAfterPreviousCorrect: conditionalFlag(previousCorrect === true, sameAsPrevious),
+    switchedAfterPreviousIncorrect: conditionalFlag(previousCorrect === false, inverseFlag(sameAsPrevious)),
+    audioSource: trial.audioSource,
+    audioPlayOk: boolFlag(trial.audioPlayOk),
+  };
+}
+
+function groupRowsByNumber(rows, key) {
+  const groups = new Map();
+  for (const row of rows) {
+    const groupKey = Number(row[key]);
+    if (!groups.has(groupKey)) {
+      groups.set(groupKey, []);
+    }
+    groups.get(groupKey).push(row);
+  }
+  return groups;
+}
+
+function sameResponseFlag(currentResponseObjectId, previousResponseObjectId) {
+  if (currentResponseObjectId === null
+      || typeof currentResponseObjectId === "undefined"
+      || previousResponseObjectId === null
+      || typeof previousResponseObjectId === "undefined") {
+    return "";
+  }
+  return Number(currentResponseObjectId) === Number(previousResponseObjectId) ? 1 : 0;
+}
+
+function boolFlag(value) {
+  if (value === null || typeof value === "undefined" || value === "") {
+    return "";
+  }
+  return value ? 1 : 0;
+}
+
+function inverseBoolFlag(value) {
+  if (value === null || typeof value === "undefined" || value === "") {
+    return "";
+  }
+  return value ? 0 : 1;
+}
+
+function inverseFlag(value) {
+  if (value === null || typeof value === "undefined" || value === "") {
+    return "";
+  }
+  return value ? 0 : 1;
+}
+
+function conditionalFlag(condition, value) {
+  return condition ? value : "";
+}
+
+function blankNull(value) {
+  return value === null || typeof value === "undefined" ? "" : value;
+}
+
+function jsonCell(value) {
+  return Array.isArray(value) || (value && typeof value === "object")
+    ? JSON.stringify(value)
+    : blankNull(value);
+}
+
+function roundNumber(value, digits) {
+  const factor = 10 ** digits;
+  return Math.round(value * factor) / factor;
 }
 
 function summaryRows() {
@@ -1270,6 +1469,7 @@ function notesRows() {
     { sheet: "Practice", note: "The first practice entry is the volume check. Exclude all practice rows from model fitting." },
     { sheet: "Data", note: "5AFC test trials. Primary block-level outcome and Berens-style first-correct summaries can be computed from this sheet." },
     { sheet: "Data", note: `5AFC response timeout is ${TEST_RESPONSE_TIMEOUT_MS} ms. Timeout rows are saved with noResponse=true, responseSource=timeout, and correct=false.` },
+    { sheet: "ModelReady", note: "Chronological learning and 5AFC observations with numeric flags for switching and HMM-style analyses." },
     { sheet: "LearningEvents", note: "One row per spoken word during learning. This is the primary sheet for encounter-index switching analyses." },
     { sheet: "LearningTrials", note: "One row per 3-word/3-object learning context." },
     { sheet: "PairMap", note: "Participant-specific word-object mapping, phonological condition, and visual family." },

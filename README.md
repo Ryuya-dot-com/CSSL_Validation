@@ -30,6 +30,9 @@ final test accuracy.
   - Generates static MP3 files with gTTS.
 - `stimulus_tools/generate_object_svgs.py`
   - Generates abstract SVG object stimuli.
+- `analysis/simulate_switching_recovery.py`
+  - Simulates latent explore/associative/PbV trajectories and checks whether
+    onset timing can be recovered under the Plan 2 schedule.
 - `config/task_design_plan2.json`
   - Machine-readable adopted task design: 20 words, 5 blocks, 5AFC.
 - `index.html` / `styles.css` / `task.js`
@@ -60,6 +63,8 @@ final test accuracy.
   - Prior-study logic, practice design, audio, image, and export rationale.
 - `docs/mechanism_switching_plan.md`
   - Analysis plan for estimating learning-mechanism switching.
+- `docs/pilot_checklist.md`
+  - Pilot QA checklist for audio, images, task flow, export, and model recovery.
 - `analysis/README.md`
   - Planned modeling outputs and file conventions.
 
@@ -100,7 +105,21 @@ python3 CSSL_Validation/stimulus_tools/generate_object_svgs.py
 python3 CSSL_Validation/stimulus_tools/generate_gtts_audio.py
 ```
 
-These scripts write only inside `CSSL_Validation/stimuli/`.
+These scripts write inside `CSSL_Validation/stimuli/`, `CSSL_Validation/audio/`,
+and `CSSL_Validation/images/objects/`.
+
+## Run Switching Simulation
+
+From this repository root:
+
+```bash
+python3 CSSL_Validation/analysis/simulate_switching_recovery.py --participants 80
+```
+
+This writes ignored diagnostic files under
+`CSSL_Validation/analysis/simulation_outputs/`. Use the summary to check whether
+the adopted schedule can recover plausible PbV onset timing before collecting a
+full sample.
 
 ## Run Browser Task
 
@@ -133,3 +152,7 @@ For switching analyses, the task should export at minimum:
 - response correctness,
 - response time,
 - previous response/correctness for the same word where available.
+
+The workbook also includes a `ModelReady` sheet. It combines learning and 5AFC
+observations in chronological order and adds numeric flags for contingency and
+switching analyses.
