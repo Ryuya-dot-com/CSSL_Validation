@@ -47,6 +47,34 @@ whether Plan 2 has enough observations to recover plausible PbV-onset timing.
 python3 CSSL_Validation/analysis/simulate_switching_recovery.py --participants 80
 ```
 
+Useful variants:
+
+```bash
+python3 CSSL_Validation/analysis/simulate_switching_recovery.py \
+  --participants 80 \
+  --scenario weak_signal \
+  --posterior-threshold 0.80
+```
+
+Run all predefined scenarios:
+
+```bash
+python3 CSSL_Validation/analysis/run_simulation_scenarios.py --participants 80
+```
+
+Available scenarios are:
+
+- `balanced`
+  - Baseline simulation assumptions.
+- `late_switch`
+  - PbV transitions are delayed, especially for hard phonology items.
+- `weak_signal`
+  - State-specific accuracy differences are smaller, making state recovery more
+    difficult.
+- `strong_signal`
+  - State-specific accuracy differences are larger, giving an optimistic upper
+    bound.
+
 The script writes:
 
 - `synthetic_learning_events.csv`
@@ -58,6 +86,8 @@ The script writes:
   - True versus estimated PbV onset encounter for each word trajectory.
 - `switch_recovery_summary.csv`
   - Recovery rates and onset-error summaries overall and by easy/hard items.
+- `threshold_sensitivity_summary.csv`
+  - The same recovery summaries across a posterior-threshold grid.
 
 Treat this as a design diagnostic, not as the final inferential model. If the
 simulation shows poor recovery even under friendly assumptions, the behavioral

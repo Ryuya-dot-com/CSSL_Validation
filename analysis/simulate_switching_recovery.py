@@ -36,10 +36,53 @@ INITIAL_STATE_PRIOR = [0.76, 0.22, 0.02]
 
 
 @dataclass(frozen=True)
+class SimulationProfile:
+    name: str
+    pbv_transition_scale: float = 1.0
+    associative_transition_scale: float = 1.0
+    hard_delay_scale: float = 1.0
+    pbv_drop_scale: float = 1.0
+    emission_gap_scale: float = 1.0
+    aptitude_sd: float = 0.75
+
+
+BASE_PROFILE = SimulationProfile(name="balanced")
+SCENARIOS = {
+    "balanced": BASE_PROFILE,
+    "late_switch": SimulationProfile(
+        name="late_switch",
+        pbv_transition_scale=0.58,
+        associative_transition_scale=0.92,
+        hard_delay_scale=1.25,
+        pbv_drop_scale=1.08,
+        emission_gap_scale=0.95,
+    ),
+    "weak_signal": SimulationProfile(
+        name="weak_signal",
+        pbv_transition_scale=0.90,
+        associative_transition_scale=0.92,
+        hard_delay_scale=1.10,
+        pbv_drop_scale=1.18,
+        emission_gap_scale=0.70,
+    ),
+    "strong_signal": SimulationProfile(
+        name="strong_signal",
+        pbv_transition_scale=1.15,
+        associative_transition_scale=1.05,
+        hard_delay_scale=0.90,
+        pbv_drop_scale=0.78,
+        emission_gap_scale=1.24,
+    ),
+}
+
+
+@dataclass(frozen=True)
 class SimulationConfig:
     participants: int
     seed: int
     posterior_threshold: float
+    threshold_grid: list[float]
+    profile: SimulationProfile
     out_dir: Path
 
 
@@ -65,10 +108,12 @@ def transition_distribution(
     previous_correct: bool | None,
     is_hard: bool,
     aptitude: float,
+    profile: SimulationProfile = BASE_PROFILE,
 ) -> dict[str, float]:
     hard = 1.0 if is_hard else 0.0
     previous_correct_bonus = 1.0 if previous_correct is True else 0.0
     previous_incorrect_penalty = 1.0 if previous_correct is False else 0.0
+    hard_pbv_multiplier = 1.0 / profile.hard_delay_scale if is_hard else 1.0
 
     if current_state == "explore":
         to_pbv = clamp(
@@ -80,7 +125,7 @@ def transition_distribution(
             - 0.006 * previous_incorrect_penalty,
             0.0,
             0.20,
-        )
+        ) * profile.pbv_transition_scale * hard_pbv_multiplier
         to_associative = clamp(
             0.035
             + 0.017 * encounter_index
@@ -88,7 +133,9 @@ def transition_distribution(
             - 0.018 * hard,
             0.01,
             0.28,
-        )
+        ) * profile.associative_transition_scale
+        to_pbv = clamp(to_pbv, 0.0, 0.55)
+        to_associative = clamp(to_associative, 0.0, 0.55)
         stay_explore = clamp(1.0 - to_pbv - to_associative, 0.0, 1.0)
         return normalize_distribution({
             "explore": stay_explore,
@@ -106,12 +153,13 @@ def transition_distribution(
             - 0.010 * previous_incorrect_penalty,
             0.005,
             0.36,
-        )
+        ) * profile.pbv_transition_scale * hard_pbv_multiplier
         to_explore = clamp(
             0.008 + 0.010 * hard + 0.020 * previous_incorrect_penalty - 0.010 * aptitude,
             0.0,
             0.10,
         )
+        to_pbv = clamp(to_pbv, 0.0, 0.62)
         stay_associative = clamp(1.0 - to_pbv - to_explore, 0.0, 1.0)
         return normalize_distribution({
             "explore": to_explore,
@@ -126,8 +174,14 @@ def transition_distribution(
         - 0.012 * aptitude,
         0.0,
         0.14,
-    )
-    drop_to_explore = clamp(0.003 + 0.006 * previous_incorrect_penalty, 0.0, 0.05)
+    ) * profile.pbv_drop_scale
+    drop_to_explore = clamp(
+        0.003 + 0.006 * previous_incorrect_penalty,
+        0.0,
+        0.05,
+    ) * profile.pbv_drop_scale
+    drop_to_associative = clamp(drop_to_associative, 0.0, 0.35)
+    drop_to_explore = clamp(drop_to_explore, 0.0, 0.15)
     stay_pbv = clamp(1.0 - drop_to_associative - drop_to_explore, 0.0, 1.0)
     return normalize_distribution({
         "explore": drop_to_explore,
@@ -142,16 +196,18 @@ def emission_correct_probability(
     previous_correct: bool | None,
     is_hard: bool,
     aptitude: float,
+    profile: SimulationProfile = BASE_PROFILE,
 ) -> float:
     hard = 1.0 if is_hard else 0.0
     previous_correct_bonus = 1.0 if previous_correct is True else 0.0
     previous_incorrect = 1.0 if previous_correct is False else 0.0
 
     if state == "explore":
-        return clamp(1.0 / 3.0 + 0.010 * aptitude - 0.010 * hard, 0.27, 0.40)
+        p_correct = clamp(1.0 / 3.0 + 0.010 * aptitude - 0.010 * hard, 0.27, 0.40)
+        return scale_from_chance(p_correct, profile.emission_gap_scale)
 
     if state == "associative":
-        return clamp(
+        p_correct = clamp(
             0.34
             + 0.032 * encounter_index
             + 0.035 * previous_correct_bonus
@@ -160,12 +216,20 @@ def emission_correct_probability(
             0.34,
             0.82,
         )
+        return scale_from_chance(p_correct, profile.emission_gap_scale)
 
     if previous_correct is True:
-        return clamp(0.91 + 0.015 * aptitude - 0.030 * hard, 0.76, 0.96)
+        p_correct = clamp(0.91 + 0.015 * aptitude - 0.030 * hard, 0.76, 0.96)
+        return scale_from_chance(p_correct, profile.emission_gap_scale)
     if previous_correct is False:
-        return clamp(0.45 + 0.015 * aptitude - 0.050 * hard, 0.30, 0.62)
-    return clamp(0.62 + 0.015 * aptitude - 0.030 * hard, 0.45, 0.75)
+        p_correct = clamp(0.45 + 0.015 * aptitude - 0.050 * hard, 0.30, 0.62)
+        return scale_from_chance(p_correct, profile.emission_gap_scale)
+    p_correct = clamp(0.62 + 0.015 * aptitude - 0.030 * hard, 0.45, 0.75)
+    return scale_from_chance(p_correct, profile.emission_gap_scale)
+
+
+def scale_from_chance(probability: float, scale: float, chance: float = 1.0 / 3.0) -> float:
+    return clamp(chance + (probability - chance) * scale, 0.01, 0.99)
 
 
 def normalize_distribution(distribution: dict[str, float]) -> dict[str, float]:
@@ -207,13 +271,17 @@ def choose_response_object(
     return int(rng.choice(foils))
 
 
-def simulate_participant(participant_id: str, rng: random.Random) -> list[dict[str, Any]]:
+def simulate_participant(
+    participant_id: str,
+    rng: random.Random,
+    profile: SimulationProfile,
+) -> list[dict[str, Any]]:
     schedule = build_schedule(participant_id)
     words_by_pair_id = {int(row["listWordId"]): row for row in schedule["words"]}
     state_by_pair_id = {pair_id: "explore" for pair_id in words_by_pair_id}
     encounter_by_pair_id = {pair_id: 0 for pair_id in words_by_pair_id}
     previous_by_pair_id: dict[int, dict[str, Any]] = {}
-    aptitude = rng.normalvariate(0.0, 0.75)
+    aptitude = rng.normalvariate(0.0, profile.aptitude_sd)
     rows: list[dict[str, Any]] = []
     event_seq = 0
 
@@ -236,6 +304,7 @@ def simulate_participant(participant_id: str, rng: random.Random) -> list[dict[s
                     previous_correct=previous_correct,
                     is_hard=is_hard_item(word),
                     aptitude=aptitude,
+                    profile=profile,
                 )
                 true_state = draw_from_distribution(transition, rng)
                 state_by_pair_id[pair_id] = true_state
@@ -246,6 +315,7 @@ def simulate_participant(participant_id: str, rng: random.Random) -> list[dict[s
                     previous_correct=previous_correct,
                     is_hard=is_hard_item(word),
                     aptitude=aptitude,
+                    profile=profile,
                 )
                 correct = rng.random() < p_correct
                 response_object_id = choose_response_object(
@@ -260,6 +330,7 @@ def simulate_participant(participant_id: str, rng: random.Random) -> list[dict[s
                 row = {
                     "participantId": participant_id,
                     "listId": schedule["listId"],
+                    "simulationScenario": profile.name,
                     "participantAptitude": round(aptitude, 6),
                     "eventSeq": event_seq,
                     "block": int(trial["block"]),
@@ -304,6 +375,7 @@ def infer_posteriors(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
             rows.append({
                 "participantId": event["participantId"],
                 "listId": event["listId"],
+                "simulationScenario": event.get("simulationScenario", ""),
                 "eventSeq": event["eventSeq"],
                 "block": event["block"],
                 "pairId": event["pairId"],
@@ -455,6 +527,7 @@ def summarize_recovery(
         by_word_rows.append({
             "participantId": participant_id,
             "listId": first_event["listId"],
+            "simulationScenario": first_event.get("simulationScenario", ""),
             "pairId": pair_id,
             "word": first_event["word"],
             "contrast": first_event["contrast"],
@@ -476,6 +549,22 @@ def summarize_recovery(
     return by_word_rows, summary_rows
 
 
+def threshold_sensitivity_rows(
+    events: list[dict[str, Any]],
+    posteriors: list[dict[str, Any]],
+    thresholds: list[float],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for threshold in thresholds:
+        _by_word, summary_rows = summarize_recovery(
+            events=events,
+            posteriors=posteriors,
+            posterior_threshold=threshold,
+        )
+        rows.extend(summary_rows)
+    return rows
+
+
 def first_encounter(sequence: list[dict[str, Any]], predicate: Any) -> int | None:
     for row in sequence:
         if predicate(row):
@@ -493,6 +582,7 @@ def build_summary_rows(
     scopes.append(("hard", [row for row in by_word_rows if int(row["isHard"]) == 1]))
     summary_rows = []
     state_accuracy = mean_or_blank([int(row["stateRecovered"]) for row in posteriors])
+    scenario = by_word_rows[0].get("simulationScenario", "") if by_word_rows else ""
 
     for scope, rows in scopes:
         onset_rows = [
@@ -503,6 +593,7 @@ def build_summary_rows(
         true_onset_count = sum(1 for row in rows if row["truePbvOnsetEncounter"] != "")
         estimated_onset_count = sum(1 for row in rows if row["estimatedPbvOnsetEncounter"] != "")
         summary_rows.append({
+            "simulationScenario": scenario,
             "scope": scope,
             "posteriorThreshold": posterior_threshold,
             "wordTrajectories": len(rows),
@@ -556,13 +647,18 @@ def run_simulation(config: SimulationConfig) -> dict[str, Path]:
     rng = random.Random(config.seed)
     events: list[dict[str, Any]] = []
     for participant_id in participant_ids(config.participants):
-        events.extend(simulate_participant(participant_id, rng))
+        events.extend(simulate_participant(participant_id, rng, config.profile))
 
     posteriors = infer_posteriors(events)
     recovery_rows, summary_rows = summarize_recovery(
         events=events,
         posteriors=posteriors,
         posterior_threshold=config.posterior_threshold,
+    )
+    sensitivity_rows = threshold_sensitivity_rows(
+        events=events,
+        posteriors=posteriors,
+        thresholds=config.threshold_grid,
     )
 
     config.out_dir.mkdir(parents=True, exist_ok=True)
@@ -571,23 +667,41 @@ def run_simulation(config: SimulationConfig) -> dict[str, Path]:
         "state_posterior_by_event": config.out_dir / "state_posterior_by_event.csv",
         "switch_recovery_by_word": config.out_dir / "switch_recovery_by_word.csv",
         "switch_recovery_summary": config.out_dir / "switch_recovery_summary.csv",
+        "threshold_sensitivity_summary": config.out_dir / "threshold_sensitivity_summary.csv",
         "simulation_parameters": config.out_dir / "simulation_parameters.json",
     }
     write_csv(output_paths["synthetic_learning_events"], events)
     write_csv(output_paths["state_posterior_by_event"], posteriors)
     write_csv(output_paths["switch_recovery_by_word"], recovery_rows)
     write_csv(output_paths["switch_recovery_summary"], summary_rows)
+    write_csv(output_paths["threshold_sensitivity_summary"], sensitivity_rows)
     output_paths["simulation_parameters"].write_text(
         json.dumps({
             "participants": config.participants,
             "seed": config.seed,
             "posteriorThreshold": config.posterior_threshold,
+            "thresholdGrid": config.threshold_grid,
+            "simulationScenario": config.profile.name,
+            "simulationProfile": profile_to_dict(config.profile),
+            "inferenceProfile": profile_to_dict(BASE_PROFILE),
             "states": list(STATES),
-            "note": "Fixed-parameter design diagnostic, not a final inferential model.",
+            "note": "Fixed-parameter design diagnostic, not a final inferential model. Inference uses the balanced profile so non-balanced scenarios test robustness to parameter mismatch.",
         }, indent=2) + "\n",
         encoding="utf-8",
     )
     return output_paths
+
+
+def profile_to_dict(profile: SimulationProfile) -> dict[str, float | str]:
+    return {
+        "name": profile.name,
+        "pbvTransitionScale": profile.pbv_transition_scale,
+        "associativeTransitionScale": profile.associative_transition_scale,
+        "hardDelayScale": profile.hard_delay_scale,
+        "pbvDropScale": profile.pbv_drop_scale,
+        "emissionGapScale": profile.emission_gap_scale,
+        "aptitudeSd": profile.aptitude_sd,
+    }
 
 
 def parse_args() -> SimulationConfig:
@@ -595,26 +709,56 @@ def parse_args() -> SimulationConfig:
     parser.add_argument("--participants", type=int, default=80)
     parser.add_argument("--seed", type=int, default=20260526)
     parser.add_argument("--posterior-threshold", type=float, default=0.70)
+    parser.add_argument(
+        "--threshold-grid",
+        default="0.55,0.60,0.65,0.70,0.75,0.80,0.85,0.90",
+        help="Comma-separated posterior thresholds for sensitivity summaries.",
+    )
+    parser.add_argument(
+        "--scenario",
+        choices=sorted(SCENARIOS),
+        default="balanced",
+        help="Generative scenario. Inference remains fixed at the balanced profile.",
+    )
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
     args = parser.parse_args()
     if args.participants <= 0:
         raise SystemExit("--participants must be positive")
     if not 0 < args.posterior_threshold < 1:
         raise SystemExit("--posterior-threshold must be between 0 and 1")
+    threshold_grid = parse_threshold_grid(args.threshold_grid, args.posterior_threshold)
     return SimulationConfig(
         participants=args.participants,
         seed=args.seed,
         posterior_threshold=args.posterior_threshold,
+        threshold_grid=threshold_grid,
+        profile=SCENARIOS[args.scenario],
         out_dir=args.out_dir,
     )
+
+
+def parse_threshold_grid(text: str, primary_threshold: float) -> list[float]:
+    try:
+        thresholds = [float(part.strip()) for part in text.split(",") if part.strip()]
+    except ValueError as error:
+        raise SystemExit("--threshold-grid must contain comma-separated numbers") from error
+    thresholds.append(primary_threshold)
+    unique = sorted({round(threshold, 6) for threshold in thresholds})
+    invalid = [threshold for threshold in unique if not 0 < threshold < 1]
+    if invalid:
+        raise SystemExit("--threshold-grid values must be between 0 and 1")
+    return unique
 
 
 def main() -> None:
     config = parse_args()
     output_paths = run_simulation(config)
     summary_path = output_paths["switch_recovery_summary"]
+    sensitivity_path = output_paths["threshold_sensitivity_summary"]
     print(f"Wrote simulation outputs to {config.out_dir}")
+    print(f"Scenario: {config.profile.name}")
     print(f"Summary: {summary_path}")
+    print(f"Threshold sensitivity: {sensitivity_path}")
 
 
 if __name__ == "__main__":

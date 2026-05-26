@@ -33,6 +33,9 @@ final test accuracy.
 - `analysis/simulate_switching_recovery.py`
   - Simulates latent explore/associative/PbV trajectories and checks whether
     onset timing can be recovered under the Plan 2 schedule.
+- `analysis/run_simulation_scenarios.py`
+  - Runs the switching-recovery simulation across all predefined generative
+    scenarios.
 - `config/task_design_plan2.json`
   - Machine-readable adopted task design: 20 words, 5 blocks, 5AFC.
 - `index.html` / `styles.css` / `task.js`
@@ -116,10 +119,19 @@ From this repository root:
 python3 CSSL_Validation/analysis/simulate_switching_recovery.py --participants 80
 ```
 
+Or run the predefined scenario sweep:
+
+```bash
+python3 CSSL_Validation/analysis/run_simulation_scenarios.py --participants 80
+```
+
 This writes ignored diagnostic files under
 `CSSL_Validation/analysis/simulation_outputs/`. Use the summary to check whether
 the adopted schedule can recover plausible PbV onset timing before collecting a
-full sample.
+full sample. Use `--scenario weak_signal`, `--scenario late_switch`, or
+`--scenario strong_signal` to inspect whether conclusions depend on the assumed
+generative process; `threshold_sensitivity_summary.csv` reports recovery across
+posterior cutoffs.
 
 ## Run Browser Task
 

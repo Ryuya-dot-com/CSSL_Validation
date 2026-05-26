@@ -48,3 +48,5 @@ catch design failures that would make switching estimates uninterpretable.
 - If timeouts are frequent, lengthen the 5AFC window or revise instructions.
 - If the switching simulation cannot recover onset within 1-2 encounters under
   plausible assumptions, avoid strong HMM claims until the design is revised.
+- If recovery is acceptable only at one posterior threshold or only in the
+  `strong_signal` scenario, treat PbV-onset estimates as exploratory.

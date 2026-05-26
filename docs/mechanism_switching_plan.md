@@ -30,6 +30,8 @@ Start simple and only move to richer latent-state models if the data support it.
      the exact Plan 2 schedule.
    - Estimate the latent states with a fixed-parameter HMM.
    - Inspect whether true PbV onset can be recovered within 1-2 encounters.
+   - Repeat the diagnostic under `balanced`, `late_switch`, `weak_signal`, and
+     `strong_signal` assumptions, and inspect posterior-threshold sensitivity.
    - Use this before data collection to decide whether the task has enough
      temporal information for switching estimates.
 
@@ -109,6 +111,8 @@ involves hidden states. Use it only if the simulation and pilot data show that:
 
 - there are enough non-ceiling, non-floor responses across encounters,
 - the posterior onset estimate is not dominated by the prior or threshold,
+- threshold sensitivity is acceptable; a claim should not depend on a single
+  arbitrary PbV posterior cutoff,
 - hard and easy items show interpretable but not degenerate differences,
 - no-response/timeouts are rare enough or explicitly modeled,
 - simpler contingency summaries point in the same qualitative direction.
