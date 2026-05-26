@@ -7,7 +7,8 @@ Planned outputs:
 
 - `qa_outputs/`
   - Optional audio/image QA tables produced by `prepare_audio_qa.py` and
-    `qa_image_similarity.py`. This directory is ignored by git.
+    `qa_image_similarity.py`, plus the consolidated readiness report produced
+    by `prepilot_readiness.py`. This directory is ignored by git.
 - `participant_summaries/`
   - Optional descriptive pilot summaries produced by `analyze_model_ready.py`.
     This directory is ignored by git.
@@ -55,17 +56,30 @@ Before pilot collection:
 ```bash
 python3 CSSL_Validation/analysis/prepare_audio_qa.py
 python3 CSSL_Validation/analysis/qa_image_similarity.py --participants 80
+python3 CSSL_Validation/analysis/prepilot_readiness.py --participants 80
+```
+
+To regenerate QA outputs, scenario simulations, method benchmarks, and the
+readiness report in one command:
+
+```bash
+python3 CSSL_Validation/analysis/prepilot_readiness.py --participants 80 --refresh
 ```
 
 After collecting a pilot workbook:
 
 ```bash
 python3 CSSL_Validation/analysis/analyze_model_ready.py path/to/export.xlsx
+python3 CSSL_Validation/analysis/prepilot_readiness.py --workbook path/to/export.xlsx
 ```
 
 The workbook summary intentionally uses transparent descriptive quantities:
 block-level accuracy, hard/easy splits, timeout/no-response rates,
 word-trajectory sequences, and previous-correct contingency.
+
+`prepilot_readiness.py` adds schema and task-integrity checks around those
+summaries: required sheets, required `ModelReady` columns, row counts,
+chronological ordering, timeout coding, and 5AFC target-position balance.
 
 ## Simulation Diagnostic
 

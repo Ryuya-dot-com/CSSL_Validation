@@ -14,13 +14,17 @@ not enough for final HMM claims.
 Run the static QA scripts:
 
 ```bash
-python3 CSSL_Validation/analysis/prepare_audio_qa.py
-python3 CSSL_Validation/analysis/qa_image_similarity.py --participants 80
-python3 CSSL_Validation/analysis/run_simulation_scenarios.py --participants 80
+python3 CSSL_Validation/analysis/prepilot_readiness.py --participants 80 --refresh
 ```
 
-Review the generated files under `CSSL_Validation/analysis/qa_outputs/` and
-`CSSL_Validation/analysis/simulation_outputs/`.
+Review:
+
+- `CSSL_Validation/analysis/qa_outputs/prepilot_readiness_report.md`
+- `CSSL_Validation/analysis/qa_outputs/prepilot_readiness_checks.csv`
+
+The readiness report intentionally treats incomplete manual audio review and
+weak-signal simulation recovery as warnings rather than automatic task failure.
+Formal pilot collection should not start with any `FAIL` rows.
 
 ## During Pilot
 
@@ -42,6 +46,7 @@ Run:
 
 ```bash
 python3 CSSL_Validation/analysis/analyze_model_ready.py path/to/export.xlsx
+python3 CSSL_Validation/analysis/prepilot_readiness.py --workbook path/to/export.xlsx
 ```
 
 Inspect:
@@ -55,6 +60,9 @@ Inspect:
   - item-level sequences; use this to find broken audio or images.
 - `timeout_rows.csv`
   - no-response/timeouts that may indicate unclear instructions or fatigue.
+- `prepilot_readiness_checks.csv`
+  - workbook schema, row counts, chronological ordering, timeout coding, and
+    target-position balance.
 
 ## Go / Revise Criteria
 

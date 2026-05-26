@@ -44,6 +44,8 @@ final test accuracy.
 - `analysis/analyze_model_ready.py`
   - Summarizes exported `.xlsx` workbooks from the `ModelReady` sheet for pilot
     checks.
+- `analysis/prepilot_readiness.py`
+  - Runs or reads pre-pilot QA diagnostics and writes one readiness report.
 - `analysis/benchmark_analysis_methods.py`
   - Benchmarks HMM, rule-based, likelihood-ratio, change-point, and
     survival-style onset estimators on synthetic data.
@@ -167,15 +169,24 @@ From this repository root:
 ```bash
 python3 CSSL_Validation/analysis/prepare_audio_qa.py
 python3 CSSL_Validation/analysis/qa_image_similarity.py --participants 80
+python3 CSSL_Validation/analysis/prepilot_readiness.py --participants 80
 ```
 
 These scripts write ignored QA tables under
 `CSSL_Validation/analysis/qa_outputs/`.
 
+To regenerate QA tables and simulation summaries before writing the readiness
+report:
+
+```bash
+python3 CSSL_Validation/analysis/prepilot_readiness.py --participants 80 --refresh
+```
+
 After collecting a pilot workbook:
 
 ```bash
 python3 CSSL_Validation/analysis/analyze_model_ready.py path/to/export.xlsx
+python3 CSSL_Validation/analysis/prepilot_readiness.py --workbook path/to/export.xlsx
 ```
 
 This writes ignored descriptive summaries under

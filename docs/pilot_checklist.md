@@ -37,6 +37,18 @@ catch design failures that would make switching estimates uninterpretable.
 - Confirm timeout rows in `Data` have `noResponse=1`, `timedOut=1` in
   `ModelReady`, and `correct=0`.
 - Confirm `ModelReady` is chronologically ordered within each participant.
+- Run `analysis/prepilot_readiness.py --workbook path/to/export.xlsx` and
+  resolve any `FAIL` rows before interpreting pilot behavior.
+
+## Readiness Report
+
+- Run `analysis/prepilot_readiness.py --participants 80 --refresh` before the
+  first pilot participant.
+- Confirm `prepilot_readiness_report.md` has no `FAIL` rows.
+- Treat unresolved audio-review warnings as a block for formal pilot collection,
+  even if internal dry runs continue.
+- Treat weak-signal simulation warnings as a modeling caution: avoid strong
+  HMM-onset claims unless pilot data show enough non-ceiling, non-floor signal.
 
 ## Pilot Decision Rules
 
