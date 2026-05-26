@@ -32,6 +32,9 @@ Start simple and only move to richer latent-state models if the data support it.
    - Inspect whether true PbV onset can be recovered within 1-2 encounters.
    - Repeat the diagnostic under `balanced`, `late_switch`, `weak_signal`, and
      `strong_signal` assumptions, and inspect posterior-threshold sensitivity.
+   - Benchmark HMM against non-HMM alternatives: rolling accuracy rules,
+     mechanism likelihood ratios, change-point detection, and survival-style
+     hazard baselines.
    - Use this before data collection to decide whether the task has enough
      temporal information for switching estimates.
 
@@ -69,6 +72,13 @@ logit(pi_t) =
      - `pbv`
    - Let transition probabilities depend on block, previous correctness,
      phonology, and participant-level random effects.
+
+5. Broader robustness models
+   - Hierarchical logistic regression or GLMM for accuracy.
+   - Bayesian change-point or discrete-time survival model for onset timing.
+   - RL-style win-stay/lose-shift or Q-learning model for sequential decisions.
+   - IRT-style aptitude/difficulty model if participant-level aptitude is the
+     main estimand.
 
 ## Candidate Aptitude Indices
 

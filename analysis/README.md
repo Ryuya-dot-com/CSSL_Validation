@@ -14,6 +14,9 @@ Planned outputs:
 - `simulation_outputs/`
   - Optional synthetic-data diagnostics produced by
     `simulate_switching_recovery.py`. This directory is ignored by git.
+- `simulation_outputs/method_benchmark/`
+  - Optional benchmark results comparing multiple onset estimators on the same
+    synthetic trajectories.
 - `contingent_response.csv`
   - Participant-level and block-level previous-correct versus previous-incorrect
     summaries.
@@ -88,6 +91,12 @@ Run all predefined scenarios:
 python3 CSSL_Validation/analysis/run_simulation_scenarios.py --participants 80
 ```
 
+Benchmark multiple analysis families on the same synthetic data:
+
+```bash
+python3 CSSL_Validation/analysis/benchmark_analysis_methods.py --participants 80
+```
+
 Available scenarios are:
 
 - `balanced`
@@ -114,6 +123,10 @@ The script writes:
   - Recovery rates and onset-error summaries overall and by easy/hard items.
 - `threshold_sensitivity_summary.csv`
   - The same recovery summaries across a posterior-threshold grid.
+- `method_benchmark/method_recovery_summary.csv`
+  - Recovery metrics for HMM thresholds, rule-based estimators, mechanism
+    likelihood ratios, change-point detection, and a survival-style hazard
+    baseline.
 
 Treat this as a design diagnostic, not as the final inferential model. If the
 simulation shows poor recovery even under friendly assumptions, the behavioral

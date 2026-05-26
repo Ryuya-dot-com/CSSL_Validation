@@ -44,6 +44,9 @@ final test accuracy.
 - `analysis/analyze_model_ready.py`
   - Summarizes exported `.xlsx` workbooks from the `ModelReady` sheet for pilot
     checks.
+- `analysis/benchmark_analysis_methods.py`
+  - Benchmarks HMM, rule-based, likelihood-ratio, change-point, and
+    survival-style onset estimators on synthetic data.
 - `config/task_design_plan2.json`
   - Machine-readable adopted task design: 20 words, 5 blocks, 5AFC.
 - `index.html` / `styles.css` / `task.js`
@@ -74,6 +77,9 @@ final test accuracy.
   - Prior-study logic, practice design, audio, image, and export rationale.
 - `docs/mechanism_switching_plan.md`
   - Analysis plan for estimating learning-mechanism switching.
+- `docs/analysis_method_catalog.md`
+  - Broader analysis-method catalog spanning CSSL-inspired models, state-space
+    models, change-point/survival analysis, RL, GLMM, IRT, and RT-aware methods.
 - `docs/pilot_checklist.md`
   - Pilot QA checklist for audio, images, task flow, export, and model recovery.
 - `docs/pilot_runbook.md`
@@ -133,6 +139,12 @@ Or run the predefined scenario sweep:
 
 ```bash
 python3 CSSL_Validation/analysis/run_simulation_scenarios.py --participants 80
+```
+
+Benchmark multiple analysis strategies:
+
+```bash
+python3 CSSL_Validation/analysis/benchmark_analysis_methods.py --participants 80
 ```
 
 This writes ignored diagnostic files under
