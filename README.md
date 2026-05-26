@@ -214,5 +214,6 @@ For switching analyses, the task should export at minimum:
 - previous response/correctness for the same word where available.
 
 The workbook also includes a `ModelReady` sheet. It combines learning and 5AFC
-observations in chronological order and adds numeric flags for contingency and
+observations in chronological order and adds phonological item metadata,
+previous-hypothesis availability flags, and numeric flags for contingency and
 switching analyses.

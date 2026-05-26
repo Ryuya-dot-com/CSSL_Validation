@@ -94,6 +94,11 @@ should prioritize interpretability:
 For control targets, foils should include at least one hard item and multiple
 control items to avoid making hard/easy status an obvious answer cue.
 
+Correct target position is balanced within each 5AFC block: 20 test trials
+with five options means each screen position is correct exactly four times per
+block. This prevents response-side or visual-position bias from being absorbed
+into participant-level learning parameters.
+
 ### Time Limit And No Response
 
 The validation task uses a 30-second response window for 5AFC trials. This is
@@ -111,6 +116,10 @@ correct = false
 The trial then advances automatically. Main learning responses remain untimed
 because they are used to infer trial-by-trial learning state and should not be
 lost due to a strict deadline.
+
+Main-task 5AFC replay is disabled after the initial volume check and practice
+session. This keeps the test observation closer to a single standardized
+perceptual event; audio play success and timing are still saved for each trial.
 
 ## Practice Session
 
@@ -154,6 +163,8 @@ The browser task writes one Excel workbook (`.xlsx`) containing:
 - `LearningTrials`: one row per learning context.
 - `Practice`: tutorial responses only.
 - `PairMap`: word-object mapping and visual-family metadata.
+- `ModelReady`: chronological learning and test observations with phonological
+  metadata and previous-hypothesis availability flags.
 - `LearningSchedule` / `TestSchedule`: deterministic schedules.
 - `Config`, `Summary`, and `Notes`.
 
@@ -167,7 +178,7 @@ runtime reduces avoidable variance in audio playback and response collection.
 
 Participant ID should be used as the seed source. The same participant ID should
 always reproduce the same list assignment, learning schedule, object positions,
-word order, 5AFC foils, and 5AFC option order.
+word order, 5AFC foils, balanced target positions, and 5AFC option order.
 
 Use:
 

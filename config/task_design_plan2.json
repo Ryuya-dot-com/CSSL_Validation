@@ -44,8 +44,10 @@
     "testTrialsPerBlock": 20,
     "testTrialsTotal": 100,
     "testAfterEachLearningBlock": true,
+    "targetPositionBalance": "within each block, each of the 5 positions is correct exactly 4 times",
     "responseTimeoutMs": 30000,
-    "timeoutHandling": "record noResponse=true, responseSource=timeout, correct=false, then auto-advance"
+    "timeoutHandling": "record noResponse=true, responseSource=timeout, correct=false, then auto-advance",
+    "mainTaskReplayAllowed": false
   },
   "browser": {
     "supportedBrowser": "Google Chrome only",

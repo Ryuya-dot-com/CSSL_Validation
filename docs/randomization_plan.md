@@ -58,6 +58,10 @@ CSSL_Validation/schedules/sub-SUB001_plan2_schedule.json
 The browser task in `index.html` reproduces the same logic in JavaScript. The
 Python script remains useful for precomputing and auditing schedules.
 
+For 5AFC tests, target position is balanced within each block. Each of the five
+screen positions is correct exactly four times in the 20 trials of a block,
+while foil identity and option order remain participant-seeded.
+
 ## Response Modes
 
 - Learning trials: click or keyboard response after each spoken word.

@@ -50,6 +50,11 @@ Learning-phase responses remain untimed because the primary switching analysis
 uses those trial-by-trial responses, and a short deadline would create avoidable
 missingness in the main process measure.
 
+The 5AFC target position is balanced within each test block. With 20 trials and
+five choices, each position is correct four times per block. Main-task replay is
+disabled after the volume check and practice session so phonological perception
+is not confounded with participant-controlled repetition count.
+
 ## Browser And Audio Check
 
 The task is restricted to Google Chrome. This keeps audio playback, MP3 support,

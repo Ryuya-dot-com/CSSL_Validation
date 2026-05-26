@@ -3,6 +3,7 @@
 const LIST_IDS = ["A", "B", "C", "D"];
 const UINT_32 = 4294967296;
 const TEST_RESPONSE_TIMEOUT_MS = 30000;
+const TEST_REPLAY_ALLOWED = false;
 const PRACTICE_WORDS = [
   { listWordId: 901, objectId: 901, word: "nupa", ttsText: "noo-pah", contrast: "practice", contrastGroup: "", phonology: "practice" },
   { listWordId: 902, objectId: 902, word: "teebo", ttsText: "tee-boh", contrast: "practice", contrastGroup: "", phonology: "practice" },
@@ -419,10 +420,18 @@ async function runLearningTrial(trial) {
       eventSeq,
       pairId,
       word: word.word,
+      ttsText: word.ttsText,
       targetObjectId: word.objectId,
       contrast: word.contrast,
       contrastGroup: word.contrastGroup,
       phonology: word.phonology,
+      syllableCount: word.syllableCount,
+      syllableTemplate: word.syllableTemplate,
+      phones: word.phones,
+      ipaTarget: word.ipaTarget,
+      phonologicalNeighborhoodSize: word.phonologicalNeighborhoodSize,
+      nearestRealWordDistance: word.nearestRealWordDistance,
+      nearestRealWords: word.nearestRealWords,
       encounterIndex,
       contextPairIds: trial.pairIds,
       contextObjectIds,
@@ -489,14 +498,16 @@ async function runTestTrial(trial) {
   const firstAudioResult = await playWord(target);
   const responseWindowStartMs = performance.now();
 
-  els.replayButton.onclick = async () => {
-    replayCount += 1;
-    els.replayButton.disabled = true;
-    await playWord(target);
+  if (TEST_REPLAY_ALLOWED) {
+    els.replayButton.onclick = async () => {
+      replayCount += 1;
+      els.replayButton.disabled = true;
+      await playWord(target);
+      els.replayButton.disabled = false;
+    };
     els.replayButton.disabled = false;
-  };
-  els.replayButton.disabled = false;
-  els.replayButton.classList.remove("hidden");
+    els.replayButton.classList.remove("hidden");
+  }
 
   setCueText("選択");
   setObjectButtonsEnabled(true);
@@ -527,10 +538,18 @@ async function runTestTrial(trial) {
     blockTrial: trial.blockTrial,
     targetPairId: trial.targetPairId,
     targetWord: trial.targetWord,
+    ttsText: target.ttsText,
     targetObjectId: trial.targetObjectId,
     contrast: target.contrast,
     contrastGroup: target.contrastGroup,
     phonology: target.phonology,
+    syllableCount: target.syllableCount,
+    syllableTemplate: target.syllableTemplate,
+    phones: target.phones,
+    ipaTarget: target.ipaTarget,
+    phonologicalNeighborhoodSize: target.phonologicalNeighborhoodSize,
+    nearestRealWordDistance: target.nearestRealWordDistance,
+    nearestRealWords: target.nearestRealWords,
     encountersCompletedForWord: state.encounterCounts.get(trial.targetPairId) || null,
     optionPairIds: trial.optionPairIds,
     optionObjectIds: trial.optionObjectIds,
@@ -545,6 +564,7 @@ async function runTestTrial(trial) {
     correct,
     rtMs: Math.round(respondedAtMs - responseWindowStartMs),
     responseTimeoutMs: TEST_RESPONSE_TIMEOUT_MS,
+    replayAllowed: TEST_REPLAY_ALLOWED,
     replayCount,
     audioSource: firstAudioResult.audioSource,
     audioPlayOk: firstAudioResult.audioPlayOk,
@@ -984,9 +1004,17 @@ function buildLearningBlock(words, block, rng) {
 function buildTestBlock(words, block, rng) {
   const targets = words.slice();
   rng.shuffle(targets);
+  const targetPositions = balancedTargetPositions(
+    words.length,
+    state.config.test.testOptions,
+    rng,
+  );
   return targets.map((target, index) => {
-    const options = [target].concat(chooseFoils(target, words, rng));
-    rng.shuffle(options);
+    const targetPosition = targetPositions[index];
+    const foils = chooseFoils(target, words, rng);
+    rng.shuffle(foils);
+    const options = foils.slice();
+    options.splice(targetPosition - 1, 0, target);
     return {
       block,
       blockTrial: index + 1,
@@ -996,10 +1024,25 @@ function buildTestBlock(words, block, rng) {
       targetObjectId: target.objectId,
       optionPairIds: options.map((row) => row.listWordId),
       optionObjectIds: options.map((row) => row.objectId),
-      targetPosition: options.map((row) => row.listWordId).indexOf(target.listWordId) + 1,
+      targetPosition,
       responseMethod: "click",
     };
   });
+}
+
+function balancedTargetPositions(trialCount, optionCount, rng) {
+  if (trialCount % optionCount !== 0) {
+    throw new Error(`Cannot balance ${trialCount} trials across ${optionCount} positions`);
+  }
+  const repeats = trialCount / optionCount;
+  const positions = [];
+  for (let position = 1; position <= optionCount; position += 1) {
+    for (let repeat = 0; repeat < repeats; repeat += 1) {
+      positions.push(position);
+    }
+  }
+  rng.shuffle(positions);
+  return positions;
 }
 
 function chooseFoils(target, words, rng) {
@@ -1246,6 +1289,10 @@ function buildModelReadyRows() {
 
 function modelReadyLearningRow(event, observationSeq) {
   const sameAsPrevious = sameResponseFlag(event.responseObjectId, event.previousResponseObjectId);
+  const previousResponseInChoiceSet = choiceSetContainsFlag(
+    event.contextObjectIds,
+    event.previousResponseObjectId,
+  );
   return {
     participantId: event.participantId,
     seed: event.seed,
@@ -1258,10 +1305,18 @@ function modelReadyLearningRow(event, observationSeq) {
     wordEventInTrial: event.wordEventInTrial,
     pairId: event.pairId,
     word: event.word,
+    ttsText: event.ttsText,
     targetObjectId: event.targetObjectId,
     contrast: event.contrast,
     contrastGroup: event.contrastGroup,
     phonology: event.phonology,
+    syllableCount: event.syllableCount,
+    syllableTemplate: event.syllableTemplate,
+    phones: event.phones,
+    ipaTarget: event.ipaTarget,
+    phonologicalNeighborhoodSize: event.phonologicalNeighborhoodSize,
+    nearestRealWordDistance: event.nearestRealWordDistance,
+    nearestRealWords: event.nearestRealWords,
     encounterIndex: event.encounterIndex,
     encountersCompletedForWord: event.encounterIndex,
     choiceSetSize: 3,
@@ -1282,12 +1337,29 @@ function modelReadyLearningRow(event, observationSeq) {
     previousIncorrect: inverseBoolFlag(event.previousCorrect),
     previousRtMs: blankNull(event.previousRtMs),
     hasPreviousForWord: event.previousCorrect === null ? 0 : 1,
+    previousResponseInChoiceSet,
     sameResponseAsPrevious: sameAsPrevious,
     switchedFromPreviousResponse: inverseFlag(sameAsPrevious),
+    maintainedAvailablePreviousResponse: conditionalFlag(
+      previousResponseInChoiceSet === 1,
+      sameAsPrevious,
+    ),
+    switchedAwayFromAvailablePreviousResponse: conditionalFlag(
+      previousResponseInChoiceSet === 1,
+      inverseFlag(sameAsPrevious),
+    ),
+    forcedSwitchFromUnavailablePreviousResponse: conditionalFlag(
+      previousResponseInChoiceSet === 0,
+      inverseFlag(sameAsPrevious),
+    ),
     stayedAfterPreviousCorrect: conditionalFlag(event.previousCorrect === true, sameAsPrevious),
     switchedAfterPreviousIncorrect: conditionalFlag(event.previousCorrect === false, inverseFlag(sameAsPrevious)),
     audioSource: event.audioSource,
     audioPlayOk: boolFlag(event.audioPlayOk),
+    audioStartedAtMs: event.audioStartedAtMs,
+    audioEndedAtMs: event.audioEndedAtMs,
+    replayAllowed: "",
+    replayCount: "",
   };
 }
 
@@ -1295,6 +1367,10 @@ function modelReadyTestRow(trial, previous, observationSeq) {
   const previousResponseObjectId = previous ? previous.responseObjectId : null;
   const previousCorrect = previous ? previous.correct : null;
   const sameAsPrevious = sameResponseFlag(trial.responseObjectId, previousResponseObjectId);
+  const previousResponseInChoiceSet = choiceSetContainsFlag(
+    trial.optionObjectIds,
+    previousResponseObjectId,
+  );
   return {
     participantId: trial.participantId,
     seed: trial.seed,
@@ -1307,10 +1383,18 @@ function modelReadyTestRow(trial, previous, observationSeq) {
     wordEventInTrial: "",
     pairId: trial.targetPairId,
     word: trial.targetWord,
+    ttsText: trial.ttsText,
     targetObjectId: trial.targetObjectId,
     contrast: trial.contrast,
     contrastGroup: trial.contrastGroup,
     phonology: trial.phonology,
+    syllableCount: trial.syllableCount,
+    syllableTemplate: trial.syllableTemplate,
+    phones: trial.phones,
+    ipaTarget: trial.ipaTarget,
+    phonologicalNeighborhoodSize: trial.phonologicalNeighborhoodSize,
+    nearestRealWordDistance: trial.nearestRealWordDistance,
+    nearestRealWords: trial.nearestRealWords,
     encounterIndex: "",
     encountersCompletedForWord: trial.encountersCompletedForWord,
     choiceSetSize: 5,
@@ -1331,12 +1415,29 @@ function modelReadyTestRow(trial, previous, observationSeq) {
     previousIncorrect: inverseBoolFlag(previousCorrect),
     previousRtMs: previous ? previous.rtMs : "",
     hasPreviousForWord: previous ? 1 : 0,
+    previousResponseInChoiceSet,
     sameResponseAsPrevious: sameAsPrevious,
     switchedFromPreviousResponse: inverseFlag(sameAsPrevious),
+    maintainedAvailablePreviousResponse: conditionalFlag(
+      previousResponseInChoiceSet === 1,
+      sameAsPrevious,
+    ),
+    switchedAwayFromAvailablePreviousResponse: conditionalFlag(
+      previousResponseInChoiceSet === 1,
+      inverseFlag(sameAsPrevious),
+    ),
+    forcedSwitchFromUnavailablePreviousResponse: conditionalFlag(
+      previousResponseInChoiceSet === 0,
+      inverseFlag(sameAsPrevious),
+    ),
     stayedAfterPreviousCorrect: conditionalFlag(previousCorrect === true, sameAsPrevious),
     switchedAfterPreviousIncorrect: conditionalFlag(previousCorrect === false, inverseFlag(sameAsPrevious)),
     audioSource: trial.audioSource,
     audioPlayOk: boolFlag(trial.audioPlayOk),
+    audioStartedAtMs: trial.audioStartedAtMs,
+    audioEndedAtMs: trial.audioEndedAtMs,
+    replayAllowed: boolFlag(trial.replayAllowed),
+    replayCount: trial.replayCount,
   };
 }
 
@@ -1360,6 +1461,17 @@ function sameResponseFlag(currentResponseObjectId, previousResponseObjectId) {
     return "";
   }
   return Number(currentResponseObjectId) === Number(previousResponseObjectId) ? 1 : 0;
+}
+
+function choiceSetContainsFlag(optionObjectIds, objectId) {
+  if (objectId === null || typeof objectId === "undefined" || objectId === "") {
+    return "";
+  }
+  if (!Array.isArray(optionObjectIds)) {
+    return "";
+  }
+  const target = Number(objectId);
+  return optionObjectIds.map(Number).includes(target) ? 1 : 0;
 }
 
 function boolFlag(value) {
@@ -1469,12 +1581,14 @@ function notesRows() {
     { sheet: "Practice", note: "The first practice entry is the volume check. Exclude all practice rows from model fitting." },
     { sheet: "Data", note: "5AFC test trials. Primary block-level outcome and Berens-style first-correct summaries can be computed from this sheet." },
     { sheet: "Data", note: `5AFC response timeout is ${TEST_RESPONSE_TIMEOUT_MS} ms. Timeout rows are saved with noResponse=true, responseSource=timeout, and correct=false.` },
+    { sheet: "Data", note: "Main-task 5AFC replay is disabled so phonological perception and response timing remain standardized after the initial volume check." },
     { sheet: "ModelReady", note: "Chronological learning and 5AFC observations with numeric flags for switching and HMM-style analyses." },
+    { sheet: "ModelReady", note: "previousResponseInChoiceSet and related available/unavailable switch flags support no-feedback PbV analyses using learner-available evidence." },
     { sheet: "LearningEvents", note: "One row per spoken word during learning. This is the primary sheet for encounter-index switching analyses." },
     { sheet: "LearningTrials", note: "One row per 3-word/3-object learning context." },
     { sheet: "PairMap", note: "Participant-specific word-object mapping, phonological condition, and visual family." },
     { sheet: "LearningSchedule", note: "Deterministic schedule generated from participant ID. Same seed reproduces this schedule." },
-    { sheet: "TestSchedule", note: "Deterministic 5AFC target and option order." },
+    { sheet: "TestSchedule", note: "Deterministic 5AFC target and option order. Target position is balanced within each block." },
   ];
 }
 

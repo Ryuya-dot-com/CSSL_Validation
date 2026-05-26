@@ -212,14 +212,39 @@ def choose_foils(
     return foils[:4]
 
 
+def balanced_target_positions(
+    trial_count: int,
+    option_count: int,
+    rng: DeterministicRng,
+) -> list[int]:
+    if trial_count % option_count != 0:
+        raise ValueError(f"Cannot balance {trial_count} trials across {option_count} positions")
+    repeats = trial_count // option_count
+    positions = [
+        position
+        for position in range(1, option_count + 1)
+        for _repeat in range(repeats)
+    ]
+    rng.shuffle(positions)
+    return positions
+
+
 def build_test_block(words: list[dict[str, Any]], block: int, rng: DeterministicRng) -> list[dict[str, Any]]:
     targets = words[:]
     rng.shuffle(targets)
+    config = load_config()
+    target_positions = balanced_target_positions(
+        len(words),
+        int(config["test"]["testOptions"]),
+        rng,
+    )
     trials = []
     for block_trial, target in enumerate(targets, 1):
-        options = [target] + choose_foils(target, words, rng)
-        rng.shuffle(options)
-        target_position = [row["listWordId"] for row in options].index(target["listWordId"]) + 1
+        target_position = target_positions[block_trial - 1]
+        foils = choose_foils(target, words, rng)
+        rng.shuffle(foils)
+        options = foils[:]
+        options.insert(target_position - 1, target)
         trials.append({
             "block": block,
             "blockTrial": block_trial,
@@ -271,7 +296,7 @@ def build_schedule(participant_id: str, list_override: str | None = None) -> dic
         "seed": seed,
         "listId": list_id,
         "responseMode": {
-            "learning": "keyboard",
+            "learning": "click_or_keyboard",
             "test": "click_5afc",
         },
         "config": config,
