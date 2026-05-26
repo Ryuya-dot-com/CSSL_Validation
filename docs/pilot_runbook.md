@@ -21,6 +21,7 @@ Review:
 
 - `CSSL_Validation/analysis/qa_outputs/prepilot_readiness_report.md`
 - `CSSL_Validation/analysis/qa_outputs/prepilot_readiness_checks.csv`
+- `CSSL_Validation/analysis/qa_outputs/stimulus_review_dashboard.html`
 
 The readiness report intentionally treats incomplete manual audio review and
 weak-signal simulation recovery as warnings rather than automatic task failure.
@@ -32,6 +33,10 @@ as skipped; run `analysis/qa_audio_asr.py` once with API access before formal
 collection. Image recognition has a deterministic SVG-based layer that runs
 without external dependencies and checks for high-nameability objects and
 same-shape-label collisions in 5AFC option sets.
+
+Open the dashboard in Chrome for the final stimulus pass. It shows each MP3
+with its paired object thumbnail, ASR status, and image-nameability flags on one
+page, so the reviewer does not have to cross-reference CSV files by hand.
 
 ## During Pilot
 

@@ -51,6 +51,8 @@ catch design failures that would make switching estimates uninterpretable.
 - Run `analysis/prepilot_readiness.py --participants 80 --refresh` before the
   first pilot participant.
 - Confirm `prepilot_readiness_report.md` has no `FAIL` rows.
+- Open `analysis/qa_outputs/stimulus_review_dashboard.html` in Chrome and use
+  it for the final audio/image pass.
 - If the readiness report says ASR was skipped because no API key was available,
   run `analysis/qa_audio_asr.py` once in an environment with `OPENAI_API_KEY`
   before formal pilot collection.

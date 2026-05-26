@@ -47,6 +47,9 @@ final test accuracy.
 - `analysis/qa_image_recognition.py`
   - Automatically labels generated SVG shape families, screens image
     nameability risk, and checks 5AFC option sets for shape-label collisions.
+- `analysis/build_stimulus_review_dashboard.py`
+  - Builds a static HTML review dashboard with audio players, SVG thumbnails,
+    ASR status, and image-recognition flags.
 - `analysis/analyze_model_ready.py`
   - Summarizes exported `.xlsx` workbooks from the `ModelReady` sheet for pilot
     checks.
@@ -177,6 +180,7 @@ python3 CSSL_Validation/analysis/prepare_audio_qa.py
 python3 CSSL_Validation/analysis/qa_audio_asr.py
 python3 CSSL_Validation/analysis/qa_image_similarity.py --participants 80
 python3 CSSL_Validation/analysis/qa_image_recognition.py --participants 80
+python3 CSSL_Validation/analysis/build_stimulus_review_dashboard.py
 python3 CSSL_Validation/analysis/prepilot_readiness.py --participants 80
 ```
 
@@ -189,6 +193,10 @@ SVG-based recognition screen by default; optional `--provider openai-svg` or
 `--provider openai-vision` modes can be used as an additional recognizer layer
 when the required API access, and for vision mode an SVG-to-PNG renderer, are
 available.
+
+`build_stimulus_review_dashboard.py` writes
+`analysis/qa_outputs/stimulus_review_dashboard.html`, which can be opened in
+Chrome to review MP3s and SVGs from one page.
 
 To regenerate QA tables and simulation summaries before writing the readiness
 report:

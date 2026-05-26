@@ -196,6 +196,7 @@ def run_refresh(args: argparse.Namespace, rows: list[CheckRow]) -> None:
             "--participants",
             str(args.participants),
         ],
+        [sys.executable, str(ROOT / "analysis" / "build_stimulus_review_dashboard.py")],
     ]
     if not args.skip_simulation:
         commands.extend([

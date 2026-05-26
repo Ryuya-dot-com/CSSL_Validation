@@ -8,8 +8,10 @@ Planned outputs:
 - `qa_outputs/`
   - Optional audio/image QA tables produced by `prepare_audio_qa.py`,
     `qa_audio_asr.py`, `qa_image_similarity.py`, and
-    `qa_image_recognition.py`, plus the consolidated readiness report produced
-    by `prepilot_readiness.py`. This directory is ignored by git.
+    `qa_image_recognition.py`, the static review dashboard produced by
+    `build_stimulus_review_dashboard.py`, plus the consolidated readiness
+    report produced by `prepilot_readiness.py`. This directory is ignored by
+    git.
 - `participant_summaries/`
   - Optional descriptive pilot summaries produced by `analyze_model_ready.py`.
     This directory is ignored by git.
@@ -59,6 +61,7 @@ python3 CSSL_Validation/analysis/prepare_audio_qa.py
 python3 CSSL_Validation/analysis/qa_audio_asr.py
 python3 CSSL_Validation/analysis/qa_image_similarity.py --participants 80
 python3 CSSL_Validation/analysis/qa_image_recognition.py --participants 80
+python3 CSSL_Validation/analysis/build_stimulus_review_dashboard.py
 python3 CSSL_Validation/analysis/prepilot_readiness.py --participants 80
 ```
 
@@ -72,6 +75,10 @@ generation formula to infer each object's shape label and nameability risk. It
 also checks whether any participant's 5AFC option set contains duplicate
 shape-label families. Optional OpenAI recognizer modes are available for
 additional SVG-text or rendered-image review.
+
+`build_stimulus_review_dashboard.py` writes
+`qa_outputs/stimulus_review_dashboard.html`, a static page with MP3 players,
+paired object thumbnails, ASR status, and high-nameability image flags.
 
 To regenerate QA outputs, scenario simulations, method benchmarks, and the
 readiness report in one command:
